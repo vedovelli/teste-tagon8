@@ -18,3 +18,9 @@ db.once('open', function callback(){
 
 	Account = mongoose.model('Account', accountSchema);
 });
+
+/*Main route*/
+app.get('/', function(req, res) {
+	res.type('text/plain');
+	res.send('Test Tagon8 - webservice');
+});
