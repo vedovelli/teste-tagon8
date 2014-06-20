@@ -1,5 +1,11 @@
-"dependencies": {
-	"express": "4.4.3",
-	"mongoose": "3.8.12",
-	"moment": "2.7.0"
+{
+	"name": "Tagon8",
+	"description": "Admission test for Tagon8",
+	"author": "Fábio Vedovelli <vedovelli@gmail.com>",
+	"dependencies": {
+		"express": "4.4.3",
+		"mongoose": "3.8.12",
+		"moment": "2.7.0"
+	},
+	"engine": "node 0.10.18"
 }
