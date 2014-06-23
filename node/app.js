@@ -44,10 +44,6 @@ app.put('/account', function(req, res) { //update
 	res.json({output: 'put account called. Param detected: ' + req.param('name')});
 });
 
-app.delete('/account', function(req, res) { //update
-	res.json({output: 'delete account called. Param detected: ' + req.param('name')});
-});
-
 /*Routes for Post*/
 app.get('/posts', function(req, res) { //post list
 
@@ -65,6 +61,6 @@ app.put('/post', function(req, res) { //update
 
 });
 
-app.delete('/post/:id', function(req, res) { //delete
+app.delete('/post', function(req, res) { //delete
 
 });
