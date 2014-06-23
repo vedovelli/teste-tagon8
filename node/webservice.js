@@ -1,23 +1,7 @@
 var app = require('./app.js');
-var Account;
-var mongoose = require('mongoose').connect('mongodb://127.0.0.1/toro');
-var db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function callback(){
-
-	/*Models*/
-	var accountSchema = mongoose.Schema({
-	    fullname: String,
-	    username: String,
-	    password: String
-	});
-
-	Account = mongoose.model('Account', accountSchema);
-});
+var db = require('./db.js');
 
 /*Routes*/
-
 app.get('/', function(req, res) {
 	res.type('text/plain');
 	res.send('Test Tagon8 - webservice');
@@ -25,15 +9,15 @@ app.get('/', function(req, res) {
 
 /*Routes for Account*/
 app.get('/account', function(req, res) { //info
-	res.json({name: 'vedovelli'});
+
 });
 
 app.post('/account', function(req, res) { //create
-	res.json({output: 'post account called. Param detected: ' + req.param('name')});
+
 });
 
 app.put('/account', function(req, res) { //update
-	res.json({output: 'put account called. Param detected: ' + req.param('name')});
+
 });
 
 /*Routes for Post*/
@@ -54,5 +38,22 @@ app.put('/post', function(req, res) { //update
 });
 
 app.delete('/post', function(req, res) { //delete
+
+});
+
+/*Routes for Post*/
+app.get('/comments', function(req, res) { //comment list
+
+});
+
+app.post('/comment', function(req, res) { //create
+
+});
+
+app.put('/comment', function(req, res) { //update
+
+});
+
+app.delete('/comment', function(req, res) { //delete
 
 });
