@@ -1,16 +1,7 @@
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
+var app = require('./app.js');
 var Account;
 var mongoose = require('mongoose').connect('mongodb://127.0.0.1/toro');
 var db = mongoose.connection;
-
-/*app setup and startup*/
-app.listen(4730);
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback(){
@@ -26,6 +17,7 @@ db.once('open', function callback(){
 });
 
 /*Routes*/
+
 app.get('/', function(req, res) {
 	res.type('text/plain');
 	res.send('Test Tagon8 - webservice');
@@ -33,7 +25,7 @@ app.get('/', function(req, res) {
 
 /*Routes for Account*/
 app.get('/account', function(req, res) { //info
-
+	res.json({name: 'vedovelli'});
 });
 
 app.post('/account', function(req, res) { //create
