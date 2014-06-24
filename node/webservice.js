@@ -1,5 +1,6 @@
 var app = require('./app.js');
 var db = require('./db.js');
+var validator = require('validator');
 
 /*Routes*/
 app.get('/', function(req, res) {
@@ -13,7 +14,33 @@ app.get('/account', function(req, res) { //info
 });
 
 app.post('/account', function(req, res) { //create
-	
+
+	var fullname = vaidator.escape(req.fullname);
+	var email = vaidator.escape(req.email);
+	var password = vaidator.escape(req.password);
+
+	if(validator.isEmail(email)) {
+
+		var account = new db.account({
+			fullname: fullname,
+			email: email,
+			password: password
+		});
+
+		account.save(function(err, account) {
+
+			if(err) {
+
+				res.json({error: 'Não foi possível salvar a conta'});
+			} else {
+
+				res.json({account: account});
+			}
+		});
+	} else {
+
+		// return error handler
+	};
 });
 
 app.put('/account', function(req, res) { //update
