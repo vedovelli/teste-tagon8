@@ -1,4 +1,4 @@
-var Account;
+var Account, Post;
 var mongoose = require('mongoose').connect('mongodb://127.0.0.1/tagon8');
 var db = mongoose.connection;
 
@@ -7,13 +7,23 @@ db.once('open', function callback(){
 
 	/*Models*/
 	var accountSchema = mongoose.Schema({
-	    fullname: String,
-	    username: String,
-	    password: String
+		fullname: String,
+		email: String,
+		password: String
+	});
+
+	var postSchema = mongoose.Schema({
+		title: String,
+		body: String,
+		post_date: Date,
+		tags: Array,
+		comments: Array
 	});
 
 	Account = mongoose.model('Account', accountSchema);
+	Post = mongoose.model('Post', postSchema);
 
 	module.exports.db = db;
 	module.exports.account = Account;
+	module.exports.post = Post;
 });
