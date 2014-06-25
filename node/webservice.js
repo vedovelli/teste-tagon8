@@ -11,7 +11,7 @@ app.get('/', function(req, res) {
 
 /*Routes for Account*/
 app.get('/account/:id', function(req, res) { //info
-	/*TODO implementar a notificacao de erros vindos do controller*/
+
 	var id = validator.escape(validator.trim(req.param('id')));
 
 	accountController.get(id, function(account){
@@ -21,7 +21,7 @@ app.get('/account/:id', function(req, res) { //info
 });
 
 app.post('/account', function(req, res) { //create
-/*TODO implementar a notificacao de erros vindos do controller*/
+
 	var fullname = validator.escape(validator.trim(req.param('fullname')));
 	var email = validator.escape(validator.trim(req.param('email')));
 	var password = validator.escape(validator.trim(req.param('password')));
@@ -39,7 +39,7 @@ app.post('/account', function(req, res) { //create
 });
 
 app.put('/account', function(req, res) { //update
-/*TODO implementar a notificacao de erros vindos do controller*/
+
 	var password = validator.escape(validator.trim(req.param('password')));
 	var id = validator.escape(validator.trim(req.param('id')));
 
@@ -76,10 +76,11 @@ app.post('/post', function(req, res) { //create
 	var title = validator.escape(validator.trim(req.param('title')));
 	var body = validator.escape(validator.trim(req.param('body')));
 
-	// TODO melhorar armazenamento tags. Atualmente string. Precisa ser array
 	var tags = validator.escape(validator.trim(req.param('tags')));
+	tags = tags.replace(new RegExp(' ', 'g'), ''); // remove spaces between tags
+	var tagsArray = tags.split(',');
 
-	postController.save(title, body, tags, function(post){
+	postController.save(title, body, tagsArray, function(post){
 
 		res.json(post);
 	});
@@ -91,10 +92,11 @@ app.put('/post', function(req, res) { //update
 	var title = validator.escape(validator.trim(req.param('title')));
 	var body = validator.escape(validator.trim(req.param('body')));
 
-	// TODO melhorar armazenamento tags. Atualmente string. Precisa ser array
 	var tags = validator.escape(validator.trim(req.param('tags')));
+	tags = tags.replace(new RegExp(' ', 'g'), ''); // remove spaces between tags
+	var tagsArray = tags.split(',');
 
-	postController.update(id, title, body, tags, function(post){
+	postController.update(id, title, body, tagsArray, function(post){
 
 		res.json(post);
 	});
