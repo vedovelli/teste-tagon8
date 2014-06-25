@@ -1,6 +1,7 @@
 var app = require('./app.js');
 var validator = require('validator');
 var accountController = require('./controllers/accountController.js');
+var postController = require('./controllers/postController.js');
 
 /*Routes*/
 app.get('/', function(req, res) {
@@ -10,7 +11,7 @@ app.get('/', function(req, res) {
 
 /*Routes for Account*/
 app.get('/account/:id', function(req, res) { //info
-
+	/*TODO implementar a notificacao de erros vindos do controller*/
 	var id = validator.escape(validator.trim(req.param('id')));
 
 	accountController.get(id, function(account){
@@ -20,7 +21,7 @@ app.get('/account/:id', function(req, res) { //info
 });
 
 app.post('/account', function(req, res) { //create
-
+/*TODO implementar a notificacao de erros vindos do controller*/
 	var fullname = validator.escape(validator.trim(req.param('fullname')));
 	var email = validator.escape(validator.trim(req.param('email')));
 	var password = validator.escape(validator.trim(req.param('password')));
@@ -38,7 +39,7 @@ app.post('/account', function(req, res) { //create
 });
 
 app.put('/account', function(req, res) { //update
-
+/*TODO implementar a notificacao de erros vindos do controller*/
 	var password = validator.escape(validator.trim(req.param('password')));
 	var id = validator.escape(validator.trim(req.param('id')));
 
@@ -48,34 +49,68 @@ app.put('/account', function(req, res) { //update
 
 			res.json(account);
 		});
-	} else {
-
-		res.json({error: 'Favor informar um e-mail válido'});
 	}
 });
 
 /*Routes for Post*/
 app.get('/posts', function(req, res) { //post list
 
+	postController.list(function(posts) {
+
+		res.json(posts);
+	});
 });
 
-app.get('/post', function(req, res) { //post content
+app.get('/post/:id', function(req, res) { //post content
 
+	var id = validator.escape(validator.trim(req.param('id')));
+
+	postController.get(id, function(post){
+
+		res.json(post);
+	});
 });
 
 app.post('/post', function(req, res) { //create
 
+	var title = validator.escape(validator.trim(req.param('title')));
+	var body = validator.escape(validator.trim(req.param('body')));
+
+	// TODO melhorar armazenamento tags. Atualmente string. Precisa ser array
+	var tags = validator.escape(validator.trim(req.param('tags')));
+
+	postController.save(title, body, tags, function(post){
+
+		res.json(post);
+	});
 });
 
 app.put('/post', function(req, res) { //update
+
+	var id = validator.escape(validator.trim(req.param('id')));
+	var title = validator.escape(validator.trim(req.param('title')));
+	var body = validator.escape(validator.trim(req.param('body')));
+
+	// TODO melhorar armazenamento tags. Atualmente string. Precisa ser array
+	var tags = validator.escape(validator.trim(req.param('tags')));
+
+	postController.update(id, title, body, tags, function(post){
+
+		res.json(post);
+	});
 
 });
 
 app.delete('/post', function(req, res) { //delete
 
+	var id = validator.escape(validator.trim(req.param('id')));
+	postController.delete(id, function(post){
+
+		res.json(post);
+	});
 });
 
-/*Routes for Post*/
+/*Routes for Comments*/
 app.get('/comments', function(req, res) { //comment list
 
 });
