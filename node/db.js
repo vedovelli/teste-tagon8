@@ -23,7 +23,7 @@ db.once('open', function callback(){
 	Account = mongoose.model('Account', accountSchema);
 	Post = mongoose.model('Post', postSchema);
 
-	module.exports.db = db;
-	module.exports.account = Account;
-	module.exports.post = Post;
+	exports.db = db;
+	exports.account = Account;
+	exports.post = Post;
 });
