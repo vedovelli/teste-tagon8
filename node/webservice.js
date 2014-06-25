@@ -34,6 +34,19 @@ app.post('/account', function(req, res) { //create
 
 app.put('/account', function(req, res) { //update
 
+	var password = validator.escape(validator.trim(req.param('password')));
+	var id = validator.escape(validator.trim(req.param('id')));
+
+	if(password) {
+
+		accountController.update(id, password, function(account){
+
+			res.json(account);
+		});
+	} else {
+
+		res.json({error: 'Favor informar um e-mail válido'});
+	}
 });
 
 /*Routes for Post*/
