@@ -9,9 +9,14 @@ app.get('/', function(req, res) {
 });
 
 /*Routes for Account*/
-app.get('/account', function(req, res) { //info
+app.get('/account/:id', function(req, res) { //info
 
-	res.json({ved:true});
+	var id = validator.escape(validator.trim(req.param('id')));
+
+	accountController.get(id, function(account){
+
+		res.json(account);
+	});
 });
 
 app.post('/account', function(req, res) { //create
