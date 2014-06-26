@@ -1,4 +1,5 @@
 var db = require('../db.js');
+var _ = require('underscore');
 
 exports.list = function(callback) {
 
@@ -73,6 +74,17 @@ exports.delete = function(id, callback) {
 			} else {
 				callback({success: true});
 			}
+		});
+	});
+}
+
+exports.deleteByPostId = function(postid) {
+
+	db.comment.find({postid: postid}, function(err, comments) {
+
+		_.each(comments, function(comment) {
+
+			comment.remove();
 		});
 	});
 }

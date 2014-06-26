@@ -4,7 +4,6 @@ var validator = require('validator');
 var accountController = require('./controllers/accountController.js');
 var postController = require('./controllers/postController.js');
 var commentController = require('./controllers/commentController.js');
-var _ = require('underscore');
 
 
 /*Routes*/
@@ -109,9 +108,10 @@ app.put('/post', function(req, res) { //update
 
 app.delete('/post', function(req, res) { //delete
 
-	//TODO deletar os comentários
-
 	var id = validator.escape(validator.trim(req.param('id')));
+
+	commentController.deleteByPostId(id);
+
 	postController.delete(id, function(post){
 
 		res.json(post);
