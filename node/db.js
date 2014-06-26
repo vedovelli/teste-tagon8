@@ -20,6 +20,7 @@ db.once('open', function callback(){
 	});
 
 	var commentSchema = mongoose.Schema({
+		postid: String,
 		fullname: String,
 		email: String,
 		comment: String,

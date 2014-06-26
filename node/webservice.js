@@ -108,6 +108,8 @@ app.put('/post', function(req, res) { //update
 
 app.delete('/post', function(req, res) { //delete
 
+	//TODO deletar os comentários
+
 	var id = validator.escape(validator.trim(req.param('id')));
 	postController.delete(id, function(post){
 
@@ -116,87 +118,106 @@ app.delete('/post', function(req, res) { //delete
 });
 
 /*Routes for Comments*/
+app.get('/comments', function(req, res) {
+
+	db.comment.find({}, function(error, comments) {
+
+		if (error) {
+			res.json({error: 'Não foi possível listar os comentários'});
+		} else {
+			res.json(comments);
+		}
+	});
+});
+
+app.get('/comment/:id', function(req, res) {
+
+	var id = validator.escape(validator.trim(req.param('id')));
+
+	db.comment.findById(id, function(error, comment) {
+
+		if (error) {
+			console.log(error);
+			res.json({error: 'Não foi possível retornar o comentário'});
+		} else {
+			res.json(comment);
+		}
+	});
+});
+
 app.post('/comment', function(req, res) { //create
 
-	var ObjectId = db.mongoose.Types.ObjectId;
 	var postid = validator.escape(validator.trim(req.param('postid')));
 	var fullname = validator.escape(validator.trim(req.param('fullname')));
 	var email = validator.escape(validator.trim(req.param('email')));
 	var comment = validator.escape(validator.trim(req.param('comment')));
-	var commentid = new ObjectId;
 
-	db.post.findById(postid, function(err, post) {
+	if(validator.isEmail(email)) {
 
-		post.comments.unshift({
-			id: commentid,
+		new db.comment({
+
+			postid: postid,
 			fullname: fullname,
 			email: email,
-			comment: comment
-		});
-
-		post.save(function(err) {
+			comment: comment,
+			comment_date: new Date()
+		}).save(function(err, comment){
 
 			if(err) {
 				res.json({error: 'Não foi possível salvar o comentário'});
 			} else {
-				res.json(post);
+				res.json(comment);
 			}
 		});
-	});
+	} else {
+
+		res.json({error: 'Favor informar um e-mail válido'});
+	}
 });
 
 app.put('/comment', function(req, res) { //create
 
-	var postid = validator.escape(validator.trim(req.param('postid')));
-	var commentid = validator.escape(validator.trim(req.param('commentid')));
+	var id = validator.escape(validator.trim(req.param('id')));
 	var fullname = validator.escape(validator.trim(req.param('fullname')));
 	var email = validator.escape(validator.trim(req.param('email')));
 	var comment = validator.escape(validator.trim(req.param('comment')));
 
-	db.post.findById(postid, function(err, post) {
+	if(validator.isEmail(email)) {
 
-		var comment = _.filter(post.comments, function(item) {
+		db.comment.findById(id, function(err, cmt) {
 
-			return item.id == commentid;
-		})[0]; // _.filter returns an array
+			cmt.fullname = fullname;
+			cmt.email = email;
+			cmt.comment = comment;
 
-		res.json(comment);
+			cmt.save(function(err) {
 
-		// post.comments = filtered;
+				if(err) {
+					res.json({error: 'Não foi possível salvar o comentário'});
+				} else {
+					res.json(cmt);
+				}
+			});
+		});
+	} else {
 
-		// post.save(function(err) {
-
-		// 	if(err) {
-		// 		res.json({error: 'Não foi possível remover o comentário'});
-		// 	} else {
-		// 		res.json(post);
-		// 	}
-		// });
-	});
+		res.json({error: 'Favor informar um e-mail válido'});
+	}
 });
 
 app.delete('/comment', function(req, res) { //delete
 
-	var postid = validator.escape(validator.trim(req.param('postid')));
-	var commentid = validator.escape(validator.trim(req.param('commentid')));
+	var id = validator.escape(validator.trim(req.param('id')));
 
-	db.post.findById(postid, function(err, post) {
+	db.comment.findById(id, function(err, comment) {
 
-		var filtered = _.filter(post.comments, function(item) {
-
-			return item.id != commentid;
-		});
-
-		post.comments = filtered;
-
-		post.save(function(err) {
+		comment.remove(function(err) {
 
 			if(err) {
 				res.json({error: 'Não foi possível remover o comentário'});
 			} else {
-				res.json(post);
+				res.json({success: true});
 			}
 		});
 	});
-
 });
