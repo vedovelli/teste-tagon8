@@ -26,4 +26,5 @@ db.once('open', function callback(){
 	exports.db = db;
 	exports.account = Account;
 	exports.post = Post;
+	exports.mongoose = mongoose;
 });

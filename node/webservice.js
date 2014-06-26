@@ -1,7 +1,10 @@
 var app = require('./app.js');
+var db = require('./db.js');
 var validator = require('validator');
 var accountController = require('./controllers/accountController.js');
 var postController = require('./controllers/postController.js');
+var _ = require('underscore');
+
 
 /*Routes*/
 app.get('/', function(req, res) {
@@ -113,18 +116,87 @@ app.delete('/post', function(req, res) { //delete
 });
 
 /*Routes for Comments*/
-app.get('/comments', function(req, res) { //comment list
-
-});
-
 app.post('/comment', function(req, res) { //create
 
+	var ObjectId = db.mongoose.Types.ObjectId;
+	var postid = validator.escape(validator.trim(req.param('postid')));
+	var fullname = validator.escape(validator.trim(req.param('fullname')));
+	var email = validator.escape(validator.trim(req.param('email')));
+	var comment = validator.escape(validator.trim(req.param('comment')));
+	var commentid = new ObjectId;
+
+	db.post.findById(postid, function(err, post) {
+
+		post.comments.unshift({
+			id: commentid,
+			fullname: fullname,
+			email: email,
+			comment: comment
+		});
+
+		post.save(function(err) {
+
+			if(err) {
+				res.json({error: 'Não foi possível salvar o comentário'});
+			} else {
+				res.json(post);
+			}
+		});
+	});
 });
 
-app.put('/comment', function(req, res) { //update
+app.put('/comment', function(req, res) { //create
 
+	var postid = validator.escape(validator.trim(req.param('postid')));
+	var commentid = validator.escape(validator.trim(req.param('commentid')));
+	var fullname = validator.escape(validator.trim(req.param('fullname')));
+	var email = validator.escape(validator.trim(req.param('email')));
+	var comment = validator.escape(validator.trim(req.param('comment')));
+
+	db.post.findById(postid, function(err, post) {
+
+		var comment = _.filter(post.comments, function(item) {
+
+			return item.id == commentid;
+		})[0]; // _.filter returns an array
+
+		res.json(comment);
+
+		// post.comments = filtered;
+
+		// post.save(function(err) {
+
+		// 	if(err) {
+		// 		res.json({error: 'Não foi possível remover o comentário'});
+		// 	} else {
+		// 		res.json(post);
+		// 	}
+		// });
+	});
 });
 
 app.delete('/comment', function(req, res) { //delete
+
+	var postid = validator.escape(validator.trim(req.param('postid')));
+	var commentid = validator.escape(validator.trim(req.param('commentid')));
+
+	db.post.findById(postid, function(err, post) {
+
+		var filtered = _.filter(post.comments, function(item) {
+
+			return item.id != commentid;
+		});
+
+		post.comments = filtered;
+
+		post.save(function(err) {
+
+			if(err) {
+				res.json({error: 'Não foi possível remover o comentário'});
+			} else {
+				res.json(post);
+			}
+		});
+	});
 
 });
