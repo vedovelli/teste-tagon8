@@ -1,8 +1,8 @@
 var db = require('../db.js');
 
-exports.list = function(callback) {
+exports.list = function(postid, callback) {
 
-	db.comment.find({}, function(error, comments) {
+	db.comment.find({'postid': postid}, function(error, comments) {
 
 		if (error) {
 			callback({error: 'Não foi possível listar os comentários'});

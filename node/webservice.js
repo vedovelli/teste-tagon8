@@ -1,6 +1,6 @@
-var app = require('./app.js');
-var db = require('./db.js');
-var validator = require('validator');
+var app = require('./app.js'); // Inicia a aplicação e seta os middlewares
+var db = require('./db.js'); // Configuração de banco de dados e schemas
+var validator = require('validator'); // provê segurança para dados enviados pela interface, normalização e validação de dados
 var accountController = require('./controllers/accountController.js');
 var postController = require('./controllers/postController.js');
 var commentController = require('./controllers/commentController.js');
@@ -61,7 +61,7 @@ app.post('/account', function(req, res) { //create
 
 app.put('/account', function(req, res) { //update
 
-	var password = validator.escape(validator.trim(req.param('password')));
+	var password = validator.escape(validator.trim(req.param('password'))); // Apenas troca de senha é permitida
 	var id = validator.escape(validator.trim(req.param('id')));
 
 	if(password) {
@@ -155,9 +155,11 @@ app.delete('/post', function(req, res) { //delete
 });
 
 /*Routes for Comments*/
-app.get('/comments', function(req, res) {
+app.get('/comments/:postid', function(req, res) {
 
-	commentController.list(function(comments) {
+	var postid = validator.escape(validator.trim(req.param('postid')));
+
+	commentController.list(postid, function(comments) {
 
 		res.json(comments);
 	});
