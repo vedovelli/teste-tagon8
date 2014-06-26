@@ -15,8 +15,6 @@ app.get('/', function(req, res) {
 /*Routes for Login*/
 app.get('/login/:email/:password', function(req, res) {
 
-	req.session.user = null;
-
 	var email = validator.escape(validator.trim(req.param('email')));
 	var password = validator.escape(validator.trim(req.param('password')));
 
@@ -28,7 +26,7 @@ app.get('/login/:email/:password', function(req, res) {
 
 app.get('/logout', function(req, res) {
 
-	req.session.user = null;
+	req.session = null;
 	res.json({result: true});
 });
 
@@ -96,6 +94,12 @@ app.get('/post/:id', function(req, res) { //post content
 
 app.post('/post', function(req, res) { //create
 
+	if(!req.session.user) {
+
+		res.json({error: 'Necessário estar autenticado'});
+		return false;
+	}
+
 	var title = validator.escape(validator.trim(req.param('title')));
 	var body = validator.escape(validator.trim(req.param('body')));
 
@@ -110,6 +114,12 @@ app.post('/post', function(req, res) { //create
 });
 
 app.put('/post', function(req, res) { //update
+
+	if(!req.session.user) {
+
+		res.json({error: 'Necessário estar autenticado'});
+		return false;
+	}
 
 	var id = validator.escape(validator.trim(req.param('id')));
 	var title = validator.escape(validator.trim(req.param('title')));
@@ -127,6 +137,12 @@ app.put('/post', function(req, res) { //update
 });
 
 app.delete('/post', function(req, res) { //delete
+
+	if(!req.session.user) {
+
+		res.json({error: 'Necessário estar autenticado'});
+		return false;
+	}
 
 	var id = validator.escape(validator.trim(req.param('id')));
 

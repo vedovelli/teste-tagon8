@@ -83,6 +83,7 @@ exports.update = function(id, title, body, tags, callback) {
 		post.title = title;
 		post.body = body;
 		post.tags = tags;
+		post.post_date = new Date();
 
 		post.save(function (err, pst) {
 
