@@ -1,5 +1,4 @@
 var db = require('../db.js');
-var _ = require('underscore');
 
 exports.list = function(callback) {
 
@@ -82,7 +81,7 @@ exports.deleteByPostId = function(postid) {
 
 	db.comment.find({postid: postid}, function(err, comments) {
 
-		_.each(comments, function(comment) {
+		comments.forEach(function(comment) {
 
 			comment.remove();
 		});

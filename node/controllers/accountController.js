@@ -20,7 +20,8 @@ exports.save = function (fullname, email, password, callback) {
 
 		fullname: fullname,
 		email: email,
-		password: password
+		password: password,
+		created: new Date()
 	}).save(function(err, acc) {
 
 		if(err) {

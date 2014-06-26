@@ -9,7 +9,8 @@ db.once('open', function callback(){
 	var accountSchema = mongoose.Schema({
 		fullname: String,
 		email: String,
-		password: String
+		password: String,
+		created: Date
 	});
 
 	var postSchema = mongoose.Schema({
