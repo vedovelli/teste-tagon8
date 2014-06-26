@@ -7,7 +7,7 @@ exports.list = function(postid, callback) {
 		if (error) {
 			callback({error: 'Não foi possível listar os comentários'});
 		} else {
-			callback(comments);
+			callback({'comments': comments, meta: {total: comments.length}});
 		}
 	});
 }

@@ -9,7 +9,7 @@ exports.list = function(callback) {
 			callback({error: 'Não foi possível localizar posts'});
 		} else {
 
-			callback({posts: psts});
+			callback({posts: psts, meta: {total: psts.length}});
 		}
 	});
 }

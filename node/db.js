@@ -5,7 +5,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback(){
 
-	/*Models*/
+	/*Schemas*/
 	var accountSchema = mongoose.Schema({
 		fullname: String,
 		email: String,
@@ -18,6 +18,9 @@ db.once('open', function callback(){
 		body: String,
 		post_date: Date,
 		tags: Array
+	}, {
+		toObject: { virtuals: true },
+		toJSON: { virtuals: true }
 	});
 
 	var commentSchema = mongoose.Schema({
@@ -28,6 +31,12 @@ db.once('open', function callback(){
 		comment_date: Date
 	});
 
+	/*Virtuals*/
+	postSchema.virtual('links').get(function () {
+		return {'comments': 'comments/' + this._id};
+	});
+
+	/*Models*/
 	Account = mongoose.model('Account', accountSchema);
 	Post = mongoose.model('Post', postSchema);
 	Comment = mongoose.model('Comment', commentSchema);
