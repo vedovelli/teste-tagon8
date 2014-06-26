@@ -1,4 +1,4 @@
-var Account, Post;
+var Account, Post, Comment;
 var mongoose = require('mongoose').connect('mongodb://127.0.0.1/tagon8');
 var db = mongoose.connection;
 
@@ -16,15 +16,23 @@ db.once('open', function callback(){
 		title: String,
 		body: String,
 		post_date: Date,
-		tags: Array,
-		comments: Array
+		tags: Array
+	});
+
+	var commentSchema = mongoose.Schema({
+		fullname: String,
+		email: String,
+		comment: String,
+		comment_date: Date
 	});
 
 	Account = mongoose.model('Account', accountSchema);
 	Post = mongoose.model('Post', postSchema);
+	Comment = mongoose.model('Comment', commentSchema);
 
 	exports.db = db;
 	exports.account = Account;
 	exports.post = Post;
+	exports.comment = Comment;
 	exports.mongoose = mongoose;
 });
