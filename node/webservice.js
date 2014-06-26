@@ -12,6 +12,26 @@ app.get('/', function(req, res) {
 	res.send('Test Tagon8 - webservice');
 });
 
+/*Routes for Login*/
+app.get('/login/:email/:password', function(req, res) {
+
+	req.session.user = null;
+
+	var email = validator.escape(validator.trim(req.param('email')));
+	var password = validator.escape(validator.trim(req.param('password')));
+
+	accountController.login(email, password, req, function(account) {
+
+		res.json(account);
+	});
+});
+
+app.get('/logout', function(req, res) {
+
+	req.session.user = null;
+	res.json({result: true});
+});
+
 /*Routes for Account*/
 app.get('/account/:id', function(req, res) { //info
 

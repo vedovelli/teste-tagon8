@@ -1,5 +1,28 @@
 var db = require('../db.js');
 
+exports.login = function(email, password, req, callback) {
+
+	db.account.findOne({'email': email}, function(err, account) {
+
+		if(err) {
+
+			callback({error: 'Problema ao localizar a conta'});
+		} else if(!account) {
+
+			callback({error: 'Conta não encontrada'});
+		} else {
+
+			if(account.password == password) {
+				req.session.user = account;
+				callback({result: true});
+			} else {
+
+				callback({error: 'Senha não confere'});
+			}
+		}
+	});
+}
+
 exports.get = function(id, callback) {
 
 	db.account.findById(id, function (err, acc) {
