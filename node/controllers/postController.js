@@ -56,7 +56,8 @@ exports.save = function (title, body, tags, callback) {
 
 		title: title,
 		body: body,
-		tags: tags
+		tags: tags,
+		post_date: new Date()
 	}).save(function(err, pst) {
 
 		if(err) {

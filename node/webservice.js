@@ -3,6 +3,7 @@ var db = require('./db.js');
 var validator = require('validator');
 var accountController = require('./controllers/accountController.js');
 var postController = require('./controllers/postController.js');
+var commentController = require('./controllers/commentController.js');
 var _ = require('underscore');
 
 
@@ -120,13 +121,9 @@ app.delete('/post', function(req, res) { //delete
 /*Routes for Comments*/
 app.get('/comments', function(req, res) {
 
-	db.comment.find({}, function(error, comments) {
+	commentController.list(function(comments) {
 
-		if (error) {
-			res.json({error: 'Não foi possível listar os comentários'});
-		} else {
-			res.json(comments);
-		}
+		res.json(comments);
 	});
 });
 
@@ -134,15 +131,11 @@ app.get('/comment/:id', function(req, res) {
 
 	var id = validator.escape(validator.trim(req.param('id')));
 
-	db.comment.findById(id, function(error, comment) {
+	commentController.get(id, function(comment) {
 
-		if (error) {
-			console.log(error);
-			res.json({error: 'Não foi possível retornar o comentário'});
-		} else {
-			res.json(comment);
-		}
+		res.json(comment);
 	});
+
 });
 
 app.post('/comment', function(req, res) { //create
@@ -154,20 +147,9 @@ app.post('/comment', function(req, res) { //create
 
 	if(validator.isEmail(email)) {
 
-		new db.comment({
+		commentController.save(postid, fullname, email, comment, function(comment) {
 
-			postid: postid,
-			fullname: fullname,
-			email: email,
-			comment: comment,
-			comment_date: new Date()
-		}).save(function(err, comment){
-
-			if(err) {
-				res.json({error: 'Não foi possível salvar o comentário'});
-			} else {
-				res.json(comment);
-			}
+			res.json(comment);
 		});
 	} else {
 
@@ -184,20 +166,9 @@ app.put('/comment', function(req, res) { //create
 
 	if(validator.isEmail(email)) {
 
-		db.comment.findById(id, function(err, cmt) {
+		commentController.update(id, fullname, email, comment, function(comment) {
 
-			cmt.fullname = fullname;
-			cmt.email = email;
-			cmt.comment = comment;
-
-			cmt.save(function(err) {
-
-				if(err) {
-					res.json({error: 'Não foi possível salvar o comentário'});
-				} else {
-					res.json(cmt);
-				}
-			});
+			res.json(comment);
 		});
 	} else {
 
@@ -209,15 +180,8 @@ app.delete('/comment', function(req, res) { //delete
 
 	var id = validator.escape(validator.trim(req.param('id')));
 
-	db.comment.findById(id, function(err, comment) {
+	commentController.delete(id, function(feedback) {
 
-		comment.remove(function(err) {
-
-			if(err) {
-				res.json({error: 'Não foi possível remover o comentário'});
-			} else {
-				res.json({success: true});
-			}
-		});
+		res.json(feedback);
 	});
 });
