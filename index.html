@@ -22,10 +22,9 @@
 
 
     <script type="text/x-handlebars" data-template-name="posts">
-        {{outlet}}
         {{#each}}
-            <p>{{#link-to 'post' this}}{{title}}{{/link-to}}<br><small>{{post_date}}</small></p>
-            <p>{{body}}</p>
+            <p>{{#link-to 'post' this}}{{title}}{{/link-to}}<br>{{format-date post_date}}</p>
+            <p>{{decode-html body}}</p>
             <hr>
         {{/each}}
     </script>
@@ -33,11 +32,10 @@
     <script type="text/x-handlebars" data-template-name="post">
         <p>{{#link-to 'posts'}}<< voltar{{/link-to}}</p>
         <h2>{{title}}<br>{{format-date post_date}}</h2>
-        <div>{{body}}</div>
+        <div>{{decode-html body}}</div>
         <hr>
         <h4>Comentários</h4>
         <p>{{#link-to 'posts'}}<< voltar{{/link-to}}</p>
-
     </script>
 
 
