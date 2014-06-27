@@ -2,7 +2,7 @@ var db = require('../db.js');
 
 exports.list = function(callback) {
 
-	db.post.find({}, function(err, psts) {
+	db.post.find({}).sort('-post_date').exec(function(err, psts) {
 
 		if (err) {
 
