@@ -87,7 +87,7 @@ app.get('/posts', function(req, res) { //post list
 	});
 });
 
-app.get('/post/:id', function(req, res) { //post content
+app.get('/posts/:id', function(req, res) { //post content
 
 	var id = validator.escape(validator.trim(req.param('id')));
 
@@ -97,7 +97,7 @@ app.get('/post/:id', function(req, res) { //post content
 	});
 });
 
-app.post('/post', function(req, res) { //create
+app.post('/posts', function(req, res) { //create
 
 	if(!req.session.user) {
 
@@ -118,7 +118,7 @@ app.post('/post', function(req, res) { //create
 	});
 });
 
-app.put('/post', function(req, res) { //update
+app.put('/posts', function(req, res) { //update
 
 	if(!req.session.user) {
 
@@ -141,7 +141,7 @@ app.put('/post', function(req, res) { //update
 
 });
 
-app.delete('/post', function(req, res) { //delete
+app.delete('/posts', function(req, res) { //delete
 
 	if(!req.session.user) {
 
@@ -170,7 +170,7 @@ app.get('/comments/:postid', function(req, res) {
 	});
 });
 
-app.get('/comment/:id', function(req, res) {
+app.get('/comments/:id', function(req, res) {
 
 	var id = validator.escape(validator.trim(req.param('id')));
 
@@ -181,7 +181,7 @@ app.get('/comment/:id', function(req, res) {
 
 });
 
-app.post('/comment', function(req, res) { //create
+app.post('/comments', function(req, res) { //create
 
 	var postid = validator.escape(validator.trim(req.param('postid')));
 	var fullname = validator.escape(validator.trim(req.param('fullname')));
@@ -200,7 +200,7 @@ app.post('/comment', function(req, res) { //create
 	}
 });
 
-app.put('/comment', function(req, res) { //create
+app.put('/comments', function(req, res) { //create
 
 	var id = validator.escape(validator.trim(req.param('id')));
 	var fullname = validator.escape(validator.trim(req.param('fullname')));
@@ -219,7 +219,7 @@ app.put('/comment', function(req, res) { //create
 	}
 });
 
-app.delete('/comment', function(req, res) { //delete
+app.delete('/comments', function(req, res) { //delete
 
 	var id = validator.escape(validator.trim(req.param('id')));
 
