@@ -33,7 +33,7 @@ db.once('open', function callback(){
 
 	/*Virtuals*/
 	postSchema.virtual('links').get(function () {
-		return {'comments': 'comments/' + this._id};
+		return {'comments': '/comments/' + this._id};
 	});
 
 	/*Models*/

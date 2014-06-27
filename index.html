@@ -24,21 +24,50 @@
     <script type="text/x-handlebars" data-template-name="posts">
         {{#each}}
             <p>{{#link-to 'post' this}}{{title}}{{/link-to}}<br>{{format-date post_date}}</p>
-            <p>{{decode-html body}}</p>
             <hr>
         {{/each}}
     </script>
+
 
     <script type="text/x-handlebars" data-template-name="post">
         <p>{{#link-to 'posts'}}<< voltar{{/link-to}}</p>
         <h2>{{title}}<br>{{format-date post_date}}</h2>
         <div>{{decode-html body}}</div>
+        <p><small>Tags: <strong>{{tags}}</strong></small></p>
         <hr>
-        <h4>Comentários</h4>
+        <form role="form">
+
+            <h4>Deixe seu comentário</h4>
+
+            <div class="form-group">
+                <label for="fullname">Nome completo</label>
+                {{input id="fullname" value=fullname class="form-control"}}
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                {{input id="email" value=email class="form-control"}}
+            </div>
+
+            <div class="form-group">
+                <label for="comment">Comentário</label>
+                {{textarea id="comment" value=comment class="form-control"}}
+            </div>
+
+            <button type="submit" class="btn btn-default" {{action 'save'}}>Comentar</button>
+        </form>
+
+        {{#if comments}}
+            <hr>
+            <h4>Comentários</h4>
+            {{#each comment in comments}}
+                <h5>{{comment.fullname}} {{format-date comment_date}} </h5>
+                <p>{{comment.comment}}</p>
+            {{/each}}
+        {{/if}}
+        <p>&nbsp;</p>
         <p>{{#link-to 'posts'}}<< voltar{{/link-to}}</p>
     </script>
-
-
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="/bower_components/select2/select2.min.js"></script>
     <script type="text/javascript" src="/bower_components/select2/select2_locale_pt-BR.js"></script>

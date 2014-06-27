@@ -4,6 +4,13 @@ App.Router.map(function() {
 	this.route('post', {path: '/post/:id'});
 });
 
+App.IndexRoute = Ember.Route.extend({
+
+	beforeModel: function() {
+		this.transitionTo('posts');
+	}
+});
+
 App.PostsRoute = Ember.Route.extend({
 
 	model: function() {
