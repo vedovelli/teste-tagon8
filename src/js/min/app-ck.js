@@ -1,0 +1,1 @@
+window.App=Ember.Application.create(),DS.RESTAdapter.reopen({host:"http://dronestore.ved",namespace:"ws"});

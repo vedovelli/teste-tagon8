@@ -1,0 +1,1 @@
+var a=DS.attr;App.Category=DS.Model.extend({name:a("string"),removed:a("boolean",{defaultValue:!1})});
