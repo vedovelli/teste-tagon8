@@ -1,1 +1,0 @@
-Handlebars.registerHelper("log",function(e){return console.log(e)});
