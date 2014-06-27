@@ -22,21 +22,33 @@
 
 
     <script type="text/x-handlebars" data-template-name="posts">
-        <p>Posts</p>
+        {{outlet}}
         {{#each}}
-            <p>{{title}}</p>
+            <p>{{#link-to 'post' this}}{{title}}{{/link-to}}<br><small>{{post_date}}</small></p>
+            <p>{{body}}</p>
+            <hr>
         {{/each}}
     </script>
 
+    <script type="text/x-handlebars" data-template-name="post">
+        <p>{{#link-to 'posts'}}<< voltar{{/link-to}}</p>
+        <h2>{{title}}<br>{{format-date post_date}}</h2>
+        <div>{{body}}</div>
+        <hr>
+        <h4>Comentários</h4>
+        <p>{{#link-to 'posts'}}<< voltar{{/link-to}}</p>
+
+    </script>
 
 
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="/bower_components/select2/select2.min.js"></script>
     <script type="text/javascript" src="/bower_components/select2/select2_locale_pt-BR.js"></script>
     <script type="text/javascript" src="/bower_components/handlebars/handlebars.min.js"></script>
-    <script type="text/javascript" src="/bower_components/ember/ember.min.js"></script>
-    <script type="text/javascript" src="/bower_components/ember-data/ember-data.min.js"></script>
+    <script type="text/javascript" src="/bower_components/ember/ember.js"></script>
+    <script type="text/javascript" src="/bower_components/ember-data/ember-data.js"></script>
     <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bower_components/moment/min/moment-with-langs.min.js"></script>
     <script type="text/javascript" src="/src/plugins/bootstrap-growl/jquery.bootstrap-growl.min.js"></script>
     <script type="text/javascript" src="/src/js/app.js"></script>
 	<script type="text/javascript" src="/src/js/mixin.js"></script>
