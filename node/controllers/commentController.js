@@ -36,7 +36,7 @@ exports.save = function(postid, fullname, email, comment, callback) {
 	}).save(function(err, comment){
 
 		if(err) {
-			callback({error: 'Não foi possível salvar o comentário'});
+			callback({'comment':{error: 'Não foi possível salvar o comentário'}});
 		} else {
 			callback({'comment': comment});
 		}
@@ -69,9 +69,9 @@ exports.delete = function(id, callback) {
 		comment.remove(function(err) {
 
 			if(err) {
-				callback({error: 'Não foi possível remover o comentário'});
+				callback({'comment': {error: 'Não foi possível remover o comentário'}});
 			} else {
-				callback({success: true});
+				callback({'comment': {success: true}});
 			}
 		});
 	});

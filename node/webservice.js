@@ -198,7 +198,7 @@ app.post('/comments', function(req, res) { //create
 		});
 	} else {
 
-		res.json({error: 'Favor informar um e-mail válido'});
+		res.json({'comment': {error: 'Favor informar um e-mail válido'}});
 	}
 });
 
@@ -217,7 +217,7 @@ app.put('/comments', function(req, res) { //update
 		});
 	} else {
 
-		res.json({error: 'Favor informar um e-mail válido'});
+		res.json({'comment': {error: 'Favor informar um e-mail válido'}});
 	}
 });
 
@@ -227,6 +227,6 @@ app.delete('/comments', function(req, res) { //delete
 
 	commentController.delete(id, function(feedback) {
 
-		res.json(feedback);
+		res.json({'comment': feedback});
 	});
 });
