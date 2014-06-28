@@ -38,7 +38,7 @@ exports.save = function(postid, fullname, email, comment, callback) {
 		if(err) {
 			callback({error: 'Não foi possível salvar o comentário'});
 		} else {
-			callback(comment);
+			callback({'comment': comment});
 		}
 	});
 }
@@ -56,7 +56,7 @@ exports.update = function(id, fullname, email, comment, callback) {
 			if(err) {
 				callback({error: 'Não foi possível salvar o comentário'});
 			} else {
-				callback(cmt);
+				callback({'comment': cmt});
 			}
 		});
 	});

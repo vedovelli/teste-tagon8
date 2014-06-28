@@ -190,7 +190,6 @@ app.post('/comments', function(req, res) { //create
 	var email = validator.escape(validator.trim(comment.email));
 	var comment = validator.escape(validator.trim(comment.comment));
 
-
 	if(validator.isEmail(email)) {
 
 		commentController.save(postid, fullname, email, comment, function(comment) {
@@ -203,7 +202,7 @@ app.post('/comments', function(req, res) { //create
 	}
 });
 
-app.put('/comments', function(req, res) { //create
+app.put('/comments', function(req, res) { //update
 
 	var id = validator.escape(validator.trim(req.param('id')));
 	var fullname = validator.escape(validator.trim(req.param('fullname')));
