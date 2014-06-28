@@ -183,10 +183,13 @@ app.get('/comments/:id', function(req, res) {
 
 app.post('/comments', function(req, res) { //create
 
-	var postid = validator.escape(validator.trim(req.param('postid')));
-	var fullname = validator.escape(validator.trim(req.param('fullname')));
-	var email = validator.escape(validator.trim(req.param('email')));
-	var comment = validator.escape(validator.trim(req.param('comment')));
+	var comment = req.param('comment');
+
+	var postid = validator.escape(validator.trim(comment.postid));
+	var fullname = validator.escape(validator.trim(comment.fullname));
+	var email = validator.escape(validator.trim(comment.email));
+	var comment = validator.escape(validator.trim(comment.comment));
+
 
 	if(validator.isEmail(email)) {
 
