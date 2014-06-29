@@ -7,6 +7,7 @@ Handlebars.registerHelper("log", function(context) {
 /* Formata a data padrão Javascript para o padrão 'um dia atrás' ou 'alguns segundos atrás'*/
 Ember.Handlebars.helper('format-date', function(date){
 
+	console.log(date);
 	moment.lang('pt-BR')
 	var markup ='';
 	markup += ' <small>';

@@ -8,17 +8,19 @@ App.PostController = Ember.ObjectController.extend({
 			var postid = this.get('model').get('id');
 
 			var commentObj = {
+
 				'postid': postid,
 				fullname: this.get('fullname'),
 				email: this.get('email'),
 				comment: this.get('comment')
 			};
 
-			var comment = this.store.createRecord('comment', commentObj);
+			this.store.createRecord('comment', commentObj)
+					  .save()
+					  .then(function(comment) {
 
-			comment.save().then(function(data) {
+				if(comment.error) {
 
-				if(data.error) {
 					// TODO error handler
 				} else {
 
@@ -28,7 +30,7 @@ App.PostController = Ember.ObjectController.extend({
 
 					self.get('model').get('comments').then(function(comments) {
 
-						comments.pushObject(data);
+						comments.pushObject(comment);
 					});
 
 					// TODO alertar o usuario do sucesso na insercao do comentario

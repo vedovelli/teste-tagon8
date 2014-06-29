@@ -61,7 +61,7 @@
             <hr>
             <h4>Comentários</h4>
             {{#each comment in comments}}
-                <h5>{{comment.fullname}} {{format-date comment_date}} </h5>
+                <h5>{{comment.fullname}} {{format-date comment.comment_date}} </h5>
                 <p>{{comment.comment}}</p>
             {{/each}}
         {{/if}}
