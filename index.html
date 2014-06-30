@@ -14,7 +14,6 @@
 
             <h2>Tagon8</h2>
 
-
               <section class="main">
                   {{outlet}}
               </section>
@@ -23,13 +22,19 @@
 
     <script type="text/x-handlebars" data-template-name="posts">
 
-        {{#unless needForm}}
         <div class="new-post-container pull-right">
             <button class="new-post-button btn btn-success" {{action 'newPost'}}>Novo Post</button>
         </div>
-        {{/unless}}
 
-        {{#if needForm}}
+        {{outlet}}
+
+        {{#each}}
+            <p>{{#link-to 'post' this}}{{title}}{{/link-to}}<br>{{format-date post_date}}</p>
+            <hr>
+        {{/each}}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="posts/new">
         <form role="form">
             <hr>
             <h4>Novo Post</h4>
@@ -53,12 +58,6 @@
             <button class="btn btn-default pull-right" {{action 'cancelNewPost'}}>Cancelar</button>
             <hr>
         </form>
-        {{/if}}
-
-        {{#each}}
-            <p>{{#link-to 'post' this}}{{title}}{{/link-to}}<br>{{format-date post_date}}</p>
-            <hr>
-        {{/each}}
     </script>
 
     <script type="text/x-handlebars" data-template-name="post">

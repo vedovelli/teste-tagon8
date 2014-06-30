@@ -4,47 +4,60 @@ App.PostsController = Ember.ArrayController.extend({
 
   	sortAscending: false,
 
-	needForm: false,
-
-	post: function() {
-
-	},
-
 	actions: {
 
 		newPost: function() {
 
-			this.set('needForm', true);
-		},
+			this.transitionToRoute('posts.new');
+		}
+
+	}
+});
+
+App.PostsNewController = Ember.ObjectController.extend({
+
+	needs: ['posts'],
+
+	actions: {
 
 		cancelNewPost: function() {
 
-			this.set('needForm', false);
+			this.transitionToRoute('posts');
 		},
 
 		savePost: function() {
 
-			var self = this;
+			var
+				title = this.get('title'),
+				body = this.get('body'),
+				tags = this.get('tags'),
+				self = this;
 
-			var postObject = {
-				title: this.get('title'),
-				body: this.get('body'),
-				tags: this.get('tags')
-			};
+			if(title && body && tags) {
 
-			this.store.
-				createRecord('post', postObject)
-				.save()
-				.then(function(response) {
+				var postObject = {
+					title: this.get('title'),
+					body: this.get('body'),
+					tags: this.get('tags')
+				};
 
-					// TODO error handler
-					// BUG pushObject adicionando duas vezes
-					self.get('model').pushObject(response);
-					self.set('title', '');
-					self.set('body', '');
-					self.set('tags', '');
-					self.set('needForm', false);
-				});
+				this.store.
+					createRecord('post', postObject)
+					.save()
+					.then(function(response) {
+
+						// TODO error handler
+						// BUG pushObject adicionando duas vezes
+						self.get('controllers.posts').get('model').pushObject(response);
+						self.set('title', '');
+						self.set('body', '');
+						self.set('tags', '');
+						self.transitionToRoute('posts');
+					});
+			} else {
+
+				alert('Todos os campos são de preenchimento obrigatório');
+			}
 
 		}
 	}
