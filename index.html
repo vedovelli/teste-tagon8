@@ -9,10 +9,11 @@
 </head>
 <body>
 
-	<script type="text/x-handlebars">
+    <script type="text/x-handlebars">
         <div class="container">
 
             <h2>Tagon8</h2>
+
 
               <section class="main">
                   {{outlet}}
@@ -20,14 +21,45 @@
         </div>
     </script>
 
-
     <script type="text/x-handlebars" data-template-name="posts">
+
+        {{#unless needForm}}
+        <div class="new-post-container pull-right">
+            <button class="new-post-button btn btn-success" {{action 'newPost'}}>Novo Post</button>
+        </div>
+        {{/unless}}
+
+        {{#if needForm}}
+        <form role="form">
+            <hr>
+            <h4>Novo Post</h4>
+
+            <div class="form-group">
+                <label for="title">Título</label>
+                {{input id="title" value=title class="form-control"}}
+            </div>
+
+            <div class="form-group">
+                <label for="body">Conteúdo</label>
+                {{textarea id="body" value=body class="form-control"}}
+            </div>
+
+            <div class="form-group">
+                <label for="tags">Tags</label>
+                {{input id="tags" value=tags class="form-control"}}
+            </div>
+
+            <button class="btn btn-primary" {{action 'savePost'}}>Salvar</button>
+            <button class="btn btn-default pull-right" {{action 'cancelNewPost'}}>Cancelar</button>
+            <hr>
+        </form>
+        {{/if}}
+
         {{#each}}
             <p>{{#link-to 'post' this}}{{title}}{{/link-to}}<br>{{format-date post_date}}</p>
             <hr>
         {{/each}}
     </script>
-
 
     <script type="text/x-handlebars" data-template-name="post">
         <p>{{#link-to 'posts'}}<< voltar{{/link-to}}</p>
@@ -54,7 +86,7 @@
                 {{textarea id="comment" value=comment class="form-control"}}
             </div>
 
-            <button type="submit" class="btn btn-primary" {{action 'saveComment'}}>Comentar</button>
+            <button class="btn btn-primary" {{action 'saveComment'}}>Comentar</button>
         </form>
 
         {{#if comments}}

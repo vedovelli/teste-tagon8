@@ -1,3 +1,55 @@
+App.PostsController = Ember.ArrayController.extend({
+
+	sortProperties: ['post_date'],
+
+  	sortAscending: false,
+
+	needForm: false,
+
+	post: function() {
+
+	},
+
+	actions: {
+
+		newPost: function() {
+
+			this.set('needForm', true);
+		},
+
+		cancelNewPost: function() {
+
+			this.set('needForm', false);
+		},
+
+		savePost: function() {
+
+			var self = this;
+
+			var postObject = {
+				title: this.get('title'),
+				body: this.get('body'),
+				tags: this.get('tags')
+			};
+
+			this.store.
+				createRecord('post', postObject)
+				.save()
+				.then(function(response) {
+
+					// TODO error handler
+
+					self.get('model').pushObject(response);
+					self.set('title', '');
+					self.set('body', '');
+					self.set('tags', '');
+					self.set('needForm', false);
+				});
+
+		}
+	}
+});
+
 App.PostController = Ember.ObjectController.extend({
 
 	actions: {
