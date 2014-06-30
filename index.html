@@ -59,9 +59,9 @@
             <hr>
         </form>
     </script>
-
     <script type="text/x-handlebars" data-template-name="post">
         <p>{{#link-to 'posts'}}<< voltar{{/link-to}}</p>
+        <p><button class="btn btn-danger btn-xs pull-right" {{action 'removePost' this}}>remover</button></p>
         <h2>{{title}}<br>{{format-date post_date}}</h2>
         <div>{{decode-html body}}</div>
         <p><small>Tags: <strong>{{tags}}</strong></small></p>

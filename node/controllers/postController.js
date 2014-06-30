@@ -6,7 +6,7 @@ exports.list = function(callback) {
 
 		if (err) {
 
-			callback({error: 'Não foi possível localizar posts'});
+			callback({post: {errorMsg: 'Não foi possível localizar posts'}});
 		} else {
 
 			callback({posts: psts, meta: {total: psts.length}});
@@ -20,7 +20,7 @@ exports.get = function(id, callback) {
 
 		if (err) {
 
-			callback({error: 'Não foi possível localizar o post'});
+			callback({post: {errorMsg: 'Não foi possível localizar o post'}});
 		} else {
 
 			callback({post: pst});
@@ -34,16 +34,16 @@ exports.delete = function(id, callback) {
 
 		if (err) {
 
-			callback({error: 'Não foi possível localizar o post'});
+			callback({post: {errorMsg: 'Não foi possível localizar o post'}});
 		} else {
 
 			pst.remove(function(err) {
 				if(err) {
 
-					callback(err);
+					callback({post: {errorMsg: err}});
 				} else {
 
-					callback({result: 'Post removido com sucesso!'});
+					callback({post: pst});
 				}
 			});
 		}
@@ -62,7 +62,7 @@ exports.save = function (title, body, tags, callback) {
 
 		if(err) {
 
-			callback({post: {error: 'Não foi possível salvar o post'}});
+			callback({post: {errorMsg: 'Não foi possível salvar o post'}});
 		} else {
 
 			callback({post: pst});
@@ -77,7 +77,7 @@ exports.update = function(id, title, body, tags, callback) {
 
 		if (err) {
 
-			callback({error: 'Não foi possível localizar o post'});
+			callback({post: {errorMsg: 'Não foi possível localizar o post'}});
 		}
 
 		post.title = title;
@@ -89,7 +89,7 @@ exports.update = function(id, title, body, tags, callback) {
 
 			if(err) {
 
-				callback({error: 'Não foi possível atualizar o post'});
+				callback({post: {errorMsg: 'Não foi possível atualizar o post'}});
 			} else {
 
 				callback({post: pst});

@@ -142,13 +142,13 @@ app.put('/posts', function(req, res) { //update
 	});
 });
 
-app.delete('/posts', function(req, res) { //delete
+app.delete('/posts/:id', function(req, res) { //delete
 
-	if(!req.session.user) {
+	// if(!req.session.user) {
 
-		res.json({error: 'Necessário estar autenticado'});
-		return false;
-	}
+	// 	res.json({post: {errorMsg: 'Necessário estar autenticado'}});
+	// 	return false;
+	// }
 
 	var id = validator.escape(validator.trim(req.param('id')));
 

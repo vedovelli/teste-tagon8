@@ -10,7 +10,6 @@ App.PostsController = Ember.ArrayController.extend({
 
 			this.transitionToRoute('posts.new');
 		}
-
 	}
 });
 
@@ -66,6 +65,22 @@ App.PostsNewController = Ember.ObjectController.extend({
 App.PostController = Ember.ObjectController.extend({
 
 	actions: {
+
+		removePost: function(params) {
+
+			var self = this;
+
+			if(confirm('Tem certeza que deseja remover o post?')) {
+
+				this.get('model').destroyRecord().then(function(response) {
+
+					//TODO error handling
+
+					self.transitionToRoute('posts');
+				});
+
+			}
+		},
 
 		saveComment: function() {
 
