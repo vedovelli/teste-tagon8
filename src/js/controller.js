@@ -38,7 +38,7 @@ App.PostsController = Ember.ArrayController.extend({
 				.then(function(response) {
 
 					// TODO error handler
-
+					// BUG pushObject adicionando duas vezes
 					self.get('model').pushObject(response);
 					self.set('title', '');
 					self.set('body', '');
