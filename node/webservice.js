@@ -99,16 +99,18 @@ app.get('/posts/:id', function(req, res) { //post content
 
 app.post('/posts', function(req, res) { //create
 
-	if(!req.session.user) {
+	// if(!req.session.user) {
 
-		res.json({error: 'Necessário estar autenticado'});
-		return false;
-	}
+	// 	res.json({post: {error: 'Necessário estar autenticado'}});
+	// 	return false;
+	// }
 
-	var title = validator.escape(validator.trim(req.param('title')));
-	var body = validator.escape(validator.trim(req.param('body')));
+	var post = req.param('post');
 
-	var tags = validator.escape(validator.trim(req.param('tags')));
+	var title = validator.escape(validator.trim(post.title));
+	var body = validator.escape(validator.trim(post.body));
+
+	var tags = validator.escape(validator.trim(post.tags));
 	tags = tags.replace(new RegExp(' ', 'g'), ''); // remove spaces between tags
 	var tagsArray = tags.split(',');
 
@@ -138,7 +140,6 @@ app.put('/posts', function(req, res) { //update
 
 		res.json(post);
 	});
-
 });
 
 app.delete('/posts', function(req, res) { //delete

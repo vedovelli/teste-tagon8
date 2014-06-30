@@ -62,7 +62,7 @@ exports.save = function (title, body, tags, callback) {
 
 		if(err) {
 
-			callback({error: 'Não foi possível salvar o post'});
+			callback({post: {error: 'Não foi possível salvar o post'}});
 		} else {
 
 			callback({post: pst});
