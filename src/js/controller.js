@@ -4,9 +4,13 @@ App.PostsController = Ember.ArrayController.extend({
 
   	sortAscending: false,
 
+  	newPostButtonVisible: true,
+
 	actions: {
 
 		newPost: function() {
+
+			this.set('newPostButtonVisible', false);
 
 			this.transitionToRoute('posts.new');
 		}
@@ -19,7 +23,9 @@ App.PostsNewController = Ember.ObjectController.extend({
 
 	actions: {
 
-		cancelNewPost: function() {
+		cancelFormPost: function() {
+
+			this.get('controllers.posts').set('newPostButtonVisible', true);
 
 			this.transitionToRoute('posts');
 		},
@@ -51,11 +57,9 @@ App.PostsNewController = Ember.ObjectController.extend({
 						self.set('title', '');
 						self.set('body', '');
 						self.set('tags', '');
+						self.get('controllers.posts').set('newPostButtonVisible', true);
 						self.transitionToRoute('posts');
 					});
-			} else {
-
-				alert('Todos os campos são de preenchimento obrigatório');
 			}
 
 		}
@@ -64,7 +68,55 @@ App.PostsNewController = Ember.ObjectController.extend({
 
 App.PostController = Ember.ObjectController.extend({
 
+	isEditing: false,
+
 	actions: {
+
+		editPost: function(params) {
+
+			this.set('isEditing', true);
+		},
+
+		cancelFormPost: function() {
+
+			this.set('isEditing', false);
+		},
+
+		savePost: function() {
+
+			var
+				title = this.get('title'),
+				body = this.get('body'),
+				tags = this.get('tags'),
+				self = this;
+
+			if(title && body && tags) {
+
+				var postObject = {
+					title: this.get('title'),
+					body: this.get('body'),
+					tags: this.get('tags')
+				};
+
+				// var post = this.store.find('post', );
+
+				// this.store.
+				// 	createRecord('post', postObject)
+				// 	.save()
+				// 	.then(function(response) {
+
+				// 		// TODO error handler
+				// 		// BUG pushObject adicionando duas vezes
+				// 		self.get('controllers.posts').get('model').pushObject(response);
+				// 		self.set('title', '');
+				// 		self.set('body', '');
+				// 		self.set('tags', '');
+				// 		self.get('controllers.posts').set('newPostButtonVisible', true);
+				// 		self.transitionToRoute('posts');
+				// 	});
+			}
+
+		},
 
 		removePost: function(params) {
 

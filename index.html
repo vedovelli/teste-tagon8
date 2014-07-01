@@ -22,9 +22,11 @@
 
     <script type="text/x-handlebars" data-template-name="posts">
 
+        {{#if newPostButtonVisible}}
         <div class="new-post-container pull-right">
             <button class="new-post-button btn btn-success" {{action 'newPost'}}>Novo Post</button>
         </div>
+        {{/if}}
 
         {{outlet}}
 
@@ -39,9 +41,8 @@
     </script>
 
     <script type="text/x-handlebars" data-template-name="posts/_form">
-        <form role="form">
+        <form role="form" {{action 'savePost' on='submit'}}>
             <hr>
-            <h4>Novo Post</h4>
 
             <div class="form-group">
                 <label for="title">Título</label>
@@ -58,50 +59,60 @@
                 {{input id="tags" value=tags class="form-control"}}
             </div>
 
-            <button class="btn btn-primary" {{action 'savePost'}}>Salvar</button>
-            <button class="btn btn-default pull-right" {{action 'cancelNewPost'}}>Cancelar</button>
+            {{input type="submit" value="Salvar" class="btn btn-primary"}}
+            <button class="btn btn-default pull-right" {{action 'cancelFormPost'}}>Cancelar</button>
             <hr>
         </form>
     </script>
 
     <script type="text/x-handlebars" data-template-name="post">
-        <p>{{#link-to 'posts'}}<< voltar{{/link-to}}</p>
-        <p><button class="btn btn-danger btn-xs pull-right" {{action 'removePost' this}}>remover</button></p>
-        <h2>{{title}}<br>{{format-date post_date}}</h2>
-        <div>{{decode-html body}}</div>
-        <p><small>Tags: <strong>{{tags}}</strong></small></p>
-        <hr>
-        <form role="form" {{action 'saveComment' on="submit"}}>
-            <h4>Deixe seu comentário</h4>
 
-            <div class="form-group">
-                <label for="fullname">Nome completo</label>
-                {{input id="fullname" value=fullname class="form-control" required="required"}}
-            </div>
+        {{#unless isEditing}}
+            <p class="pull-right"><button class="btn btn-danger btn-xs" {{action 'removePost' this}}>remover</button></p>
+            <p class="pull-right"><button class="btn btn-info btn-xs" {{action 'editPost' this}}>editar</button>&nbsp;&nbsp;&nbsp;</p>
+        {{/unless}}
 
-            <div class="form-group">
-                <label for="email">E-mail</label>
-                {{input type="email" id="email" value=email class="form-control" required="required"}}
-            </div>
-
-            <div class="form-group">
-                <label for="comment">Comentário</label>
-                {{textarea id="comment" value=comment class="form-control" required="required"}}
-            </div>
-
-            {{input type="submit" value="Comentar" class="btn btn-primary"}}
-        </form>
-
-        {{#if comments}}
+        {{#if isEditing}}
+            {{partial 'posts/_form'}}
+        {{else}}
+            <p>{{#link-to 'posts'}}<< voltar{{/link-to}}</p>
+            <h2>{{title}}<br>{{format-date post_date}}</h2>
+            <div>{{decode-html body}}</div>
+            <p><small>Tags: <strong>{{tags}}</strong></small></p>
             <hr>
-            <h4>Comentários</h4>
-            {{#each comment in comments}}
-                <h5>{{comment.fullname}} {{format-date comment.comment_date}} </h5>
-                <p>{{comment.comment}}</p>
-            {{/each}}
+            <form role="form" {{action 'saveComment' on="submit"}}>
+                <h4>Deixe seu comentário</h4>
+
+                <div class="form-group">
+                    <label for="fullname">Nome completo</label>
+                    {{input id="fullname" value=fullname class="form-control" required="required"}}
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    {{input type="email" id="email" value=email class="form-control" required="required"}}
+                </div>
+
+                <div class="form-group">
+                    <label for="comment">Comentário</label>
+                    {{textarea id="comment" value=comment class="form-control" required="required"}}
+                </div>
+
+                {{input type="submit" value="Comentar" class="btn btn-primary"}}
+            </form>
+
+            {{#if comments}}
+                <hr>
+                <h4>Comentários</h4>
+                {{#each comment in comments}}
+                    <h5>{{comment.fullname}} {{format-date comment.comment_date}} </h5>
+                    <p>{{comment.comment}}</p>
+                {{/each}}
+            {{/if}}
+
+            <p>&nbsp;</p>
+            <p>{{#link-to 'posts'}}<< voltar{{/link-to}}</p>
         {{/if}}
-        <p>&nbsp;</p>
-        <p>{{#link-to 'posts'}}<< voltar{{/link-to}}</p>
     </script>
 
 
