@@ -224,12 +224,12 @@ app.put('/comments', function(req, res) { //update
 	}
 });
 
-app.delete('/comments', function(req, res) { //delete
+app.delete('/comments/:id', function(req, res) { //delete
 
-	var id = validator.escape(validator.trim(req.param('id')));
+	var id = validator.escape(validator.trim(req.params.id));
 
 	commentController.delete(id, function(feedback) {
 
-		res.json({'comment': feedback});
+		res.json(feedback);
 	});
 });

@@ -59,6 +59,9 @@ App.PostsNewController = Ember.ObjectController.extend({
 						self.set('tags', '');
 						self.get('controllers.posts').set('newPostButtonVisible', true);
 						self.transitionToRoute('posts');
+					}, function() {
+
+						//TODO error handler
 					});
 			}
 
@@ -109,6 +112,32 @@ App.PostController = Ember.ObjectController.extend({
 					//TODO error handling
 
 					self.transitionToRoute('posts');
+				}, function() {
+
+					//TODO error handler
+				});
+
+			}
+		},
+
+		removeComment: function(comment) {
+
+			var self = this;
+
+			if(confirm('Tem certeza que deseja remover o comentário?')) {
+
+				comment.destroyRecord().then(function(response) {
+
+					self.get('model').get('comments').then(function(comments) {
+
+						comments.removeObject(comment);
+					}, function() {
+
+						//TODO error handler
+					});
+				}, function() {
+
+					//TODO error handler
 				});
 
 			}
@@ -147,6 +176,9 @@ App.PostController = Ember.ObjectController.extend({
 
 					// TODO alertar o usuario do sucesso na insercao do comentario
 				}
+			}, function() {
+
+				//TODO error handler
 			});
 		}
 	}

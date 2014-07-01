@@ -67,19 +67,20 @@
 
     <script type="text/x-handlebars" data-template-name="post">
 
-        {{#unless isEditing}}
-            <p class="pull-right"><button class="btn btn-danger btn-xs" {{action 'removePost' this}}>remover</button></p>
-            <p class="pull-right"><button class="btn btn-info btn-xs" {{action 'editPost' this}}>editar</button>&nbsp;&nbsp;&nbsp;</p>
-        {{/unless}}
 
         {{#if isEditing}}
             {{partial 'posts/_form'}}
         {{else}}
             <p>{{#link-to 'posts'}}<< voltar{{/link-to}}</p>
-            <h2>{{title}}<br>{{format-date post_date}}</h2>
-            <div>{{decode-html body}}</div>
-            <p><small>Tags: <strong>{{tags}}</strong></small></p>
-            <hr>
+            <div class="well">
+
+                <p class="pull-right"><button class="btn btn-danger btn-xs" {{action 'removePost' this}}>remover</button></p>
+                <p class="pull-right"><button class="btn btn-info btn-xs" {{action 'editPost' this}}>editar</button>&nbsp;&nbsp;&nbsp;</p>
+
+                <h2>{{title}}<br>{{format-date post_date}}</h2>
+                <div>{{decode-html body}}</div>
+                <p><small>Tags: <strong>{{tags}}</strong></small></p>
+            </div>
             <form role="form" {{action 'saveComment' on="submit"}}>
                 <h4>Deixe seu comentário</h4>
 
@@ -105,8 +106,13 @@
                 <hr>
                 <h4>Comentários</h4>
                 {{#each comment in comments}}
-                    <h5>{{comment.fullname}} {{format-date comment.comment_date}} </h5>
-                    <p>{{comment.comment}}</p>
+                    <div class="well">
+                        <h5>
+                            {{comment.fullname}} {{format-date comment.comment_date}}
+                            <p class="pull-right"><button class="btn btn-danger btn-xs" {{action 'removeComment' comment}}>remover</button></p>
+                        </h5>
+                        <p>{{comment.comment}}</p>
+                    </div>
                 {{/each}}
             {{/if}}
 
