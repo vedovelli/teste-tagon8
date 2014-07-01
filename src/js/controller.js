@@ -6,6 +6,25 @@ App.PostsController = Ember.ArrayController.extend({
 
   	newPostButtonVisible: true,
 
+	searchTerm: '',
+
+	filteredContent: function() {
+
+		var posts = this.get('content');
+		var search = this.get('searchTerm').toLowerCase();
+
+		if(search === '') {
+
+			return posts;
+		} else {
+
+			return posts.filter(function(post) {
+				return 	post.get('title').toLowerCase().indexOf(search) !== -1 ||
+						post.get('tags').toLowerCase().indexOf(search) !== -1;
+			});
+		}
+	}.property('content', 'searchTerm'),
+
 	actions: {
 
 		newPost: function() {

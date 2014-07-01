@@ -19,8 +19,13 @@
               </section>
         </div>
     </script>
-
     <script type="text/x-handlebars" data-template-name="posts">
+
+        <div class="well">
+            <form role="form">
+                {{input action="filter" onEvent="keypress" placeholder="Encontre posts usando título ou tags" class="form-control" value=searchTerm}}
+            </form>
+        </div>
 
         {{#if newPostButtonVisible}}
         <div class="new-post-container pull-right">
@@ -28,10 +33,12 @@
         </div>
         {{/if}}
 
+
         {{outlet}}
 
-        {{#each}}
+        {{#each filteredContent}}
             <p>{{#link-to 'post' this}}{{title}}{{/link-to}}<br>{{format-date post_date}}</p>
+            <p>Tags <strong>{{tags}}</strong></p>
             <hr>
         {{/each}}
     </script>
