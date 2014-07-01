@@ -84,38 +84,18 @@ App.PostController = Ember.ObjectController.extend({
 
 		savePost: function() {
 
-			var
-				title = this.get('title'),
-				body = this.get('body'),
-				tags = this.get('tags'),
-				self = this;
+			var self = this;
 
 			if(title && body && tags) {
 
-				var postObject = {
-					title: this.get('title'),
-					body: this.get('body'),
-					tags: this.get('tags')
-				};
+				this.get('model').save().then(function() {
 
-				// var post = this.store.find('post', );
+					self.set('isEditing', false);
+				}, function(error) {
 
-				// this.store.
-				// 	createRecord('post', postObject)
-				// 	.save()
-				// 	.then(function(response) {
-
-				// 		// TODO error handler
-				// 		// BUG pushObject adicionando duas vezes
-				// 		self.get('controllers.posts').get('model').pushObject(response);
-				// 		self.set('title', '');
-				// 		self.set('body', '');
-				// 		self.set('tags', '');
-				// 		self.get('controllers.posts').set('newPostButtonVisible', true);
-				// 		self.transitionToRoute('posts');
-				// 	});
+					//TODO error handler
+				});
 			}
-
 		},
 
 		removePost: function(params) {
