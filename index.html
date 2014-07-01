@@ -35,18 +35,22 @@
     </script>
 
     <script type="text/x-handlebars" data-template-name="posts/new">
+        {{partial "posts/_form"}}
+    </script>
+
+    <script type="text/x-handlebars" data-template-name="posts/_form">
         <form role="form">
             <hr>
             <h4>Novo Post</h4>
 
             <div class="form-group">
                 <label for="title">Título</label>
-                {{input id="title" value=title class="form-control"}}
+                {{input id="title" value=title class="form-control" required="required"}}
             </div>
 
             <div class="form-group">
                 <label for="body">Conteúdo</label>
-                {{textarea id="body" value=body class="form-control"}}
+                {{textarea id="body" value=body class="form-control" required="required"}}
             </div>
 
             <div class="form-group">
@@ -59,6 +63,7 @@
             <hr>
         </form>
     </script>
+
     <script type="text/x-handlebars" data-template-name="post">
         <p>{{#link-to 'posts'}}<< voltar{{/link-to}}</p>
         <p><button class="btn btn-danger btn-xs pull-right" {{action 'removePost' this}}>remover</button></p>
@@ -66,26 +71,25 @@
         <div>{{decode-html body}}</div>
         <p><small>Tags: <strong>{{tags}}</strong></small></p>
         <hr>
-        <form role="form">
-
+        <form role="form" {{action 'saveComment' on="submit"}}>
             <h4>Deixe seu comentário</h4>
 
             <div class="form-group">
                 <label for="fullname">Nome completo</label>
-                {{input id="fullname" value=fullname class="form-control"}}
+                {{input id="fullname" value=fullname class="form-control" required="required"}}
             </div>
 
             <div class="form-group">
                 <label for="email">E-mail</label>
-                {{input id="email" value=email class="form-control"}}
+                {{input type="email" id="email" value=email class="form-control" required="required"}}
             </div>
 
             <div class="form-group">
                 <label for="comment">Comentário</label>
-                {{textarea id="comment" value=comment class="form-control"}}
+                {{textarea id="comment" value=comment class="form-control" required="required"}}
             </div>
 
-            <button class="btn btn-primary" {{action 'saveComment'}}>Comentar</button>
+            {{input type="submit" value="Comentar" class="btn btn-primary"}}
         </form>
 
         {{#if comments}}
@@ -99,6 +103,9 @@
         <p>&nbsp;</p>
         <p>{{#link-to 'posts'}}<< voltar{{/link-to}}</p>
     </script>
+
+
+
     <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="/bower_components/select2/select2.min.js"></script>
     <script type="text/javascript" src="/bower_components/select2/select2_locale_pt-BR.js"></script>
