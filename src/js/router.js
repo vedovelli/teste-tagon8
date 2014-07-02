@@ -6,6 +6,8 @@ App.Router.map(function() {
 	});
 
 	this.route('post', {path: '/post/:id'});
+
+	this.route('login');
 });
 
 App.IndexRoute = Ember.Route.extend({

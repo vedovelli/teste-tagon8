@@ -8,7 +8,7 @@ App.PostsController = Ember.ArrayController.extend({
 
 	searchTerm: '',
 
-	filteredContent: function() {
+	postList: function() {
 
 		var posts = this.get('content');
 		var search = this.get('searchTerm').toLowerCase();
