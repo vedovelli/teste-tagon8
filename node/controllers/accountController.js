@@ -14,10 +14,6 @@ exports.login = function(email, password, req, callback) {
 
 			if(account.password == password) {
 				req.session.user = account;
-
-	console.log('login');
-	console.log(req.session);
-
 				callback({result: true});
 			} else {
 

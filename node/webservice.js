@@ -99,9 +99,6 @@ app.get('/posts/:id', function(req, res) { //post content
 
 app.post('/posts', function(req, res) { //create
 
-	console.log('create new post');
-	console.log(req.session);
-
 	if(!req.session.user) {
 
 		res.send(401, { error: 'Necessário estar autenticado' });
