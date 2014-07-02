@@ -18,11 +18,13 @@ App.ApplicationController = Ember.ObjectController.extend({
 
 App.LoginController = Ember.ObjectController.extend({
 
+	needs: ['posts', 'post'],
+
 	isLoggedIn: false,
 
-	email: '',
+	email: 'fabio.vedovelli@yahoo.com',
 
-	password: '',
+	password: '123456',
 
 	actions: {
 
@@ -41,6 +43,8 @@ App.LoginController = Ember.ObjectController.extend({
 
 				url = adapter.host + '/logout';
 				userStateAfterAction = false;
+				self.get('controllers.posts').send('resetUI');
+				self.get('controllers.post').send('resetUI');
 			}
 
 			Ember.$.getJSON(url, function(data) {
@@ -60,6 +64,8 @@ App.LoginController = Ember.ObjectController.extend({
 });
 
 App.PostsController = Ember.ArrayController.extend({
+
+	needs: ['login'],
 
 	sortProperties: ['post_date'],
 
@@ -88,61 +94,77 @@ App.PostsController = Ember.ArrayController.extend({
 
 	actions: {
 
+		resetUI: function() {
+
+			this.set('newPostButtonVisible', true);
+		},
+
 		newPost: function() {
 
-			this.set('newPostButtonVisible', false);
+			if(this.get('controllers.login.isLoggedIn')) {
 
-			this.transitionToRoute('posts.new');
+				this.set('newPostButtonVisible', false);
+
+				this.transitionToRoute('posts.new');
+			} else {
+
+				this.transitionToRoute('login');
+			}
 		}
 	}
 });
 
 App.PostsNewController = Ember.ObjectController.extend({
 
-	needs: ['posts'],
+	needs: ['posts', 'login'],
 
 	actions: {
 
 		cancelFormPost: function() {
 
-			this.get('controllers.posts').set('newPostButtonVisible', true);
+			this.get('controllers.posts').send('resetUI');
 
 			this.transitionToRoute('posts');
 		},
 
 		savePost: function() {
 
-			var
-				title = this.get('title'),
-				body = this.get('body'),
-				tags = this.get('tags'),
-				self = this;
+			if(this.get('controllers.login.isLoggedIn')) {
 
-			if(title && body && tags) {
+				var
+					title = this.get('title'),
+					body = this.get('body'),
+					tags = this.get('tags'),
+					self = this;
 
-				var postObject = {
-					title: this.get('title'),
-					body: this.get('body'),
-					tags: this.get('tags')
-				};
+				if(title && body && tags) {
 
-				this.store.
-					createRecord('post', postObject)
-					.save()
-					.then(function(response) {
+					var postObject = {
+						title: this.get('title'),
+						body: this.get('body'),
+						tags: this.get('tags')
+					};
 
-						// TODO error handler
-						// BUG pushObject adicionando duas vezes
-						self.get('controllers.posts').get('model').pushObject(response);
-						self.set('title', '');
-						self.set('body', '');
-						self.set('tags', '');
-						self.get('controllers.posts').set('newPostButtonVisible', true);
-						self.transitionToRoute('posts');
-					}, function() {
+					this.store.
+						createRecord('post', postObject)
+						.save()
+						.then(function(response) {
 
-						//TODO error handler
-					});
+							// BUG pushObject adicionando duas vezes
+							self.get('controllers.posts').get('model').pushObject(response);
+							self.set('title', '');
+							self.set('body', '');
+							self.set('tags', '');
+							self.get('controllers.posts').set('newPostButtonVisible', true);
+							self.transitionToRoute('posts');
+						}, function(error) {
+
+							alert(error.responseJSON.error);
+						});
+				}
+			} else {
+
+				this.transitionToRoute('login');
 			}
 
 		}
@@ -151,52 +173,77 @@ App.PostsNewController = Ember.ObjectController.extend({
 
 App.PostController = Ember.ObjectController.extend({
 
+	needs: ['login'],
+
 	isEditing: false,
 
 	actions: {
 
-		editPost: function(params) {
-
-			this.set('isEditing', true);
-		},
-
-		cancelFormPost: function() {
+		resetUI: function() {
 
 			this.set('isEditing', false);
 		},
 
+		editPost: function(params) {
+
+			if(this.get('controllers.login.isLoggedIn')) {
+
+				this.set('isEditing', true);
+			} else {
+
+				this.transitionToRoute('login');
+			}
+		},
+
+		cancelFormPost: function() {
+
+			this.send('resetUI');
+		},
+
 		savePost: function() {
 
-			var self = this;
+			if(this.get('controllers.login.isLoggedIn')) {
 
-			if(title && body && tags) {
+				var self = this;
 
-				this.get('model').save().then(function() {
+				if(title && body && tags) {
 
-					self.set('isEditing', false);
-				}, function(error) {
+					this.get('model').save().then(function() {
 
-					//TODO error handler
-				});
+						self.send('resetUI');
+					}, function(error) {
+
+						//TODO error handler
+					});
+				}
+			} else {
+
+				this.transitionToRoute('login');
 			}
 		},
 
 		removePost: function(params) {
 
-			var self = this;
+			if(this.get('controllers.login.isLoggedIn')) {
 
-			if(confirm('Tem certeza que deseja remover o post?')) {
+				var self = this;
 
-				this.get('model').destroyRecord().then(function(response) {
+				if(confirm('Tem certeza que deseja remover o post?')) {
 
-					//TODO error handling
+					this.get('model').destroyRecord().then(function(response) {
 
-					self.transitionToRoute('posts');
-				}, function() {
+						//TODO error handling
 
-					//TODO error handler
-				});
+						self.transitionToRoute('posts');
+					}, function() {
 
+						//TODO error handler
+					});
+
+				}
+			} else {
+
+				this.transitionToRoute('login');
 			}
 		},
 

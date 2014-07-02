@@ -20,9 +20,26 @@ App.IndexRoute = Ember.Route.extend({
 
 App.PostsRoute = Ember.Route.extend({
 
+	activate: function() {
+
+		this.controllerFor('posts').send('resetUI');
+	},
+
 	model: function() {
 
 		return this.store.find('post');
+	}
+});
+
+App.PostsNewRoute = Ember.Route.extend({
+
+	activate: function() {
+
+		this.controllerFor('posts').set('newPostButtonVisible', false);
+
+		if(!this.controllerFor('login').get('isLoggedIn')) {
+			this.transitionTo('login');
+		}
 	}
 });
 
