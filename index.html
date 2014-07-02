@@ -12,11 +12,13 @@
     <script type="text/x-handlebars">
         <div class="container">
             <h2>
-                Tagon8
+                {{#link-to 'index'}}Tagon 8{{/link-to}}
                 {{#if controllers.login.isLoggedIn}}
                 <button {{action 'doLogout'}} class="btn btn-default pull-right">Logout</button>
                 {{else}}
-                <button {{action 'goLogin'}} class="btn btn-default pull-right">Login</button>
+                    {{#unless controllers.login.hideLoginButton}}
+                    <button {{action 'goLogin'}} class="btn btn-default pull-right">Login</button>
+                    {{/unless}}
                 {{/if}}
             </h2>
             <section class="main">

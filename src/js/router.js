@@ -60,3 +60,16 @@ App.PostRoute = Ember.Route.extend({
 		return this.store.find('post', params.id);
 	}
 });
+
+App.LoginRoute = Ember.Route.extend({
+
+	activate: function() {
+
+		this.controllerFor('login').set('hideLoginButton', true);
+	},
+
+	deactivate: function() {
+
+		this.controllerFor('login').set('hideLoginButton', false);
+	}
+});
