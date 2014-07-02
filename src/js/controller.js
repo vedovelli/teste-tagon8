@@ -16,17 +16,86 @@ App.ApplicationController = Ember.ObjectController.extend({
 	}
 });
 
+App.AccountNewController = Ember.ObjectController.extend({
+
+	needs: ['login'],
+
+	fullname: '',
+
+	email: '',
+
+	password: '',
+
+	actions: {
+
+		resetUI: function() {
+
+			this.set('fullname', '');
+			this.set('email', '');
+			this.set('password', '');
+		},
+
+		accountCreate: function() {
+
+			var
+				fullname = this.get('fullname'),
+				email = this.get('email'),
+				password = this.get('password'),
+				self = this;
+
+			if(fullname && email && password) {
+
+				this.store
+					.createRecord('account', {
+						'fullname': fullname,
+						'email': email,
+						'password': password
+					})
+					.save()
+					.then(function(response) {
+
+						alert('Conta criada com sucesso');
+						self.get('controllers.login').set('email', email);
+						self.send('resetUI');
+						self.transitionToRoute('login');
+					}, function() {
+
+						alert('Problema ao criar a conta. Tente novamente');
+					});
+			}
+
+		},
+
+		cancel: function() {
+
+			this.send('resetUI');
+			this.transitionToRoute('login');
+		}
+	}
+});
+
 App.LoginController = Ember.ObjectController.extend({
 
 	needs: ['posts', 'post'],
 
 	isLoggedIn: false,
 
-	email: 'fabio.vedovelli@yahoo.com',
+	email: '',
 
-	password: '123456',
+	password: '',
 
 	actions: {
+
+		resetUI: function() {
+
+			this.set('email', '');
+			this.set('password', '');
+		},
+
+		createAccount: function() {
+
+			this.transitionToRoute('account.new');
+		},
 
 		loginActions: function(action) {
 
@@ -48,6 +117,7 @@ App.LoginController = Ember.ObjectController.extend({
 				doReset = function() {
 					self.get('controllers.posts').send('resetUI');
 					self.get('controllers.post').send('resetUI');
+					self.send('resetUI');
 				};
 			}
 

@@ -5,6 +5,11 @@ App.Router.map(function() {
 		this.route('new');
 	});
 
+	this.resource('account', function() {
+
+		this.route('new');
+	});
+
 	this.route('post', {path: '/post/:id'});
 
 	this.route('login');

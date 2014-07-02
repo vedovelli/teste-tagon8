@@ -1,6 +1,14 @@
 
 var a = DS.attr;
 
+App.Account = DS.Model.extend({
+
+	fullname: a('string'),
+	email: a('string'),
+	password: a('string'),
+	created: a('string')
+});
+
 App.Post = DS.Model.extend({
 
 	title: a('string'),
