@@ -66,10 +66,12 @@ app.post('/accounts', function(req, res) { //create
 	}
 });
 
-app.put('/accounts', function(req, res) { //update
+app.put('/accounts/:id', function(req, res) { //update
 
-	var password = validator.escape(validator.trim(req.param('password'))); // Apenas troca de senha é permitida
-	var id = validator.escape(validator.trim(req.param('id')));
+	var account = req.param('account');
+
+	var password = validator.escape(validator.trim(account.password)); // Apenas troca de senha é permitida
+	var id = validator.escape(validator.trim(req.params.id));
 
 	if(password) {
 

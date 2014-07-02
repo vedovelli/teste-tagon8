@@ -61,6 +61,19 @@ App.PostRoute = Ember.Route.extend({
 	}
 });
 
+App.AccountRoute = Ember.Route.extend({
+
+	activate: function() {
+
+		/* se a rota /#/account for acessada diretamente, verifica se o usuário está logado*/
+		if(!this.controllerFor('login').get('isLoggedIn')) {
+
+			/* redirecionada para login caso não esteja logado  */
+			this.transitionTo('login');
+		}
+	}
+});
+
 App.LoginRoute = Ember.Route.extend({
 
 	activate: function() {

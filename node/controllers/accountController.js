@@ -14,7 +14,7 @@ exports.login = function(email, password, req, callback) {
 
 			if(account.password == password) {
 				req.session.user = account;
-				callback({result: true});
+				callback({'account': account});
 			} else {
 
 				callback({error: 'Senha não confere'});

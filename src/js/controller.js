@@ -12,6 +12,52 @@ App.ApplicationController = Ember.ObjectController.extend({
 		goLogin: function() {
 
 			this.transitionToRoute('login');
+		},
+
+		showAccount: function() {
+
+			if(this.get('controllers.login.isLoggedIn')) {
+
+				this.transitionToRoute('account');
+			} else {
+
+				this.transitionToRoute('login');
+			}
+		}
+	}
+});
+
+App.AccountController = Ember.ObjectController.extend({
+
+	needs: ['login'],
+
+	password1: '',
+
+	password2: '',
+
+	actions: {
+
+		changePassword: function() {
+
+			var p1 = this.get('password1');
+			var p2 = this.get('password2');
+			var self = this;
+
+			if(p1 !== p2) {
+
+				alert('Senhas não são iguais');
+			} else {
+
+				this.store.find('account', this.get('controllers.login.loggedUser._id')).then(function(account) {
+
+					account.set('password', p1).save().then(function() {
+
+						self.set('password1', '');
+						self.set('password2', '');
+						alert('Senha alterada com sucesso');
+					});
+				});
+			}
 		}
 	}
 });
@@ -80,19 +126,22 @@ App.LoginController = Ember.ObjectController.extend({
 
 	isLoggedIn: false,
 
-	hideLoginButton: true,
+	loggedUser: {},
 
-	email: '',
+	hideLoginButton: false,
 
-	password: '',
+	email: 'vedovelli@gmail.com',
+
+	password: '123456',
 
 	actions: {
 
 		resetUI: function() {
 
-			this.set('email', '');
-			this.set('password', '');
+			// this.set('email', '');
+			// this.set('password', '');
 		},
+
 
 		createAccount: function() {
 
@@ -129,8 +178,8 @@ App.LoginController = Ember.ObjectController.extend({
 
 					alert(data.error);
 				} else {
-
 					doReset();
+					self.set('loggedUser', data.account);
 					self.set('isLoggedIn', userStateAfterAction);
 					self.transitionToRoute('posts');
 				}
