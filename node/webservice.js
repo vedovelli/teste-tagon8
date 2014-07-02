@@ -36,7 +36,7 @@ app.get('/logout', function(req, res) {
 });
 
 /*Routes for Account*/
-app.get('/account/:id', function(req, res) { //info
+app.get('/accounts/:id', function(req, res) { //info
 
 	var id = validator.escape(validator.trim(req.param('id')));
 
@@ -46,11 +46,13 @@ app.get('/account/:id', function(req, res) { //info
 	});
 });
 
-app.post('/account', function(req, res) { //create
+app.post('/accounts', function(req, res) { //create
 
-	var fullname = validator.escape(validator.trim(req.param('fullname')));
-	var email = validator.escape(validator.trim(req.param('email')));
-	var password = validator.escape(validator.trim(req.param('password')));
+	var account = req.param('account');
+
+	var fullname = validator.escape(validator.trim(account.fullname));
+	var email = validator.escape(validator.trim(account.email));
+	var password = validator.escape(validator.trim(account.password));
 
 	if(validator.isEmail(email)) {
 
@@ -64,7 +66,7 @@ app.post('/account', function(req, res) { //create
 	}
 });
 
-app.put('/account', function(req, res) { //update
+app.put('/accounts', function(req, res) { //update
 
 	var password = validator.escape(validator.trim(req.param('password'))); // Apenas troca de senha é permitida
 	var id = validator.escape(validator.trim(req.param('id')));
