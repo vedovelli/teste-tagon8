@@ -269,6 +269,7 @@ App.PostsNewController = Ember.ObjectController.extend({
 						tags: this.get('tags')
 					};
 
+
 					this.store.
 						createRecord('post', postObject)
 						.save()
