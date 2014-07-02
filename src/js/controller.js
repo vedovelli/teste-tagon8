@@ -1,3 +1,64 @@
+App.ApplicationController = Ember.ObjectController.extend({
+
+	needs: ['login'],
+
+	actions: {
+
+		doLogout: function() {
+
+			this.get('controllers.login').send('loginActions', 'logout');
+		},
+
+		goLogin: function() {
+
+			this.transitionToRoute('login');
+		}
+	}
+});
+
+App.LoginController = Ember.ObjectController.extend({
+
+	isLoggedIn: false,
+
+	email: '',
+
+	password: '',
+
+	actions: {
+
+		loginActions: function(action) {
+
+			var url;
+			var userStateAfterAction;
+			var adapter = DS.RESTAdapter.create();
+			var self = this;
+
+			if(action == 'login') {
+
+				url = adapter.host + '/login/' + this.get('email') +'/'+ this.get('password');
+				userStateAfterAction = true;
+			} else {
+
+				url = adapter.host + '/logout';
+				userStateAfterAction = false;
+			}
+
+			Ember.$.getJSON(url, function(data) {
+
+				if(data.error) {
+
+					alert(data.error);
+				} else {
+
+					self.set('isLoggedIn', userStateAfterAction);
+					self.transitionToRoute('posts');
+				}
+
+			});
+		},
+	}
+});
+
 App.PostsController = Ember.ArrayController.extend({
 
 	sortProperties: ['post_date'],
