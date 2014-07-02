@@ -10,6 +10,7 @@ $.ajaxSetup({
 
 App.ApplicationSerializer = DS.RESTSerializer.extend({
 
+	/* para atender à nomenclatura para chave primária do MongoDB */
 	primaryKey: '_id'
 });
 

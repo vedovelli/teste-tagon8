@@ -31,6 +31,7 @@ App.LoginController = Ember.ObjectController.extend({
 		loginActions: function(action) {
 
 			var url;
+			var doReset;
 			var userStateAfterAction;
 			var adapter = DS.RESTAdapter.create();
 			var self = this;
@@ -39,12 +40,15 @@ App.LoginController = Ember.ObjectController.extend({
 
 				url = adapter.host + '/login/' + this.get('email') +'/'+ this.get('password');
 				userStateAfterAction = true;
+				doReset = function() {};
 			} else {
 
 				url = adapter.host + '/logout';
 				userStateAfterAction = false;
-				self.get('controllers.posts').send('resetUI');
-				self.get('controllers.post').send('resetUI');
+				doReset = function() {
+					self.get('controllers.posts').send('resetUI');
+					self.get('controllers.post').send('resetUI');
+				};
 			}
 
 			Ember.$.getJSON(url, function(data) {
@@ -54,10 +58,10 @@ App.LoginController = Ember.ObjectController.extend({
 					alert(data.error);
 				} else {
 
+					doReset();
 					self.set('isLoggedIn', userStateAfterAction);
 					self.transitionToRoute('posts');
 				}
-
 			});
 		},
 	}
@@ -104,7 +108,6 @@ App.PostsController = Ember.ArrayController.extend({
 			if(this.get('controllers.login.isLoggedIn')) {
 
 				this.set('newPostButtonVisible', false);
-
 				this.transitionToRoute('posts.new');
 			} else {
 
@@ -193,6 +196,7 @@ App.PostController = Ember.ObjectController.extend({
 
 				this.transitionToRoute('login');
 			}
+
 		},
 
 		cancelFormPost: function() {
@@ -220,6 +224,7 @@ App.PostController = Ember.ObjectController.extend({
 
 				this.transitionToRoute('login');
 			}
+
 		},
 
 		removePost: function(params) {
@@ -245,6 +250,7 @@ App.PostController = Ember.ObjectController.extend({
 
 				this.transitionToRoute('login');
 			}
+
 		},
 
 		removeComment: function(comment) {

@@ -12,6 +12,7 @@ App.Router.map(function() {
 
 App.IndexRoute = Ember.Route.extend({
 
+	/* não há rota /#/ */
 	beforeModel: function() {
 
 		this.transitionTo('posts');
@@ -22,6 +23,7 @@ App.PostsRoute = Ember.Route.extend({
 
 	activate: function() {
 
+		/* reseta a interface para seu estado inicial sempre que a rota for acessada */
 		this.controllerFor('posts').send('resetUI');
 	},
 
@@ -37,7 +39,10 @@ App.PostsNewRoute = Ember.Route.extend({
 
 		this.controllerFor('posts').set('newPostButtonVisible', false);
 
+		/* se a rota /#/posts/new for acessada diretamente, verifica se o usuário está logado*/
 		if(!this.controllerFor('login').get('isLoggedIn')) {
+
+			/* redirecionada para login caso não esteja logado  */
 			this.transitionTo('login');
 		}
 	}
