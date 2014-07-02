@@ -2,9 +2,7 @@ var express = require('express');
 
 var app = module.exports = express();
 
-var cookieParser = require('cookie-parser');
-
-var cookieSession = require('cookie-session');
+var session = require('express-session');
 
 var bodyParser = require('body-parser');
 
@@ -21,11 +19,10 @@ var allowCORS = function(req, res, next) {
 app.listen(4730);
 
 app.use(bodyParser.json());
-app.use(cookieParser('$rt6&98.'));
-app.use(cookieSession({
-  secret: '$rt6&98.'
-}));
+
 app.use(allowCORS);
+
+app.use(session({secret: 'vedovelli'}));
 
 app.use(bodyParser.urlencoded({
 

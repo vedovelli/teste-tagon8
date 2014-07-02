@@ -60,7 +60,7 @@ app.post('/account', function(req, res) { //create
 		});
 	} else {
 
-		res.json({error: 'Favor informar um e-mail válido'});
+		res.json({errorMsg: 'Favor informar um e-mail válido'});
 	}
 });
 
@@ -99,11 +99,14 @@ app.get('/posts/:id', function(req, res) { //post content
 
 app.post('/posts', function(req, res) { //create
 
-	// if(!req.session.user) {
+	console.log('create new post');
+	console.log(req.session);
 
-	// 	res.json({post: {error: 'Necessário estar autenticado'}});
-	// 	return false;
-	// }
+	if(!req.session.user) {
+
+		res.send(401, { error: 'Necessário estar autenticado' });
+		return false;
+	}
 
 	var post = req.param('post');
 
@@ -122,11 +125,11 @@ app.post('/posts', function(req, res) { //create
 
 app.put('/posts/:id', function(req, res) { //update
 
-	// if(!req.session.user) {
+	if(!req.session.user) {
 
-	// 	res.json({error: 'Necessário estar autenticado'});
-	// 	return false;
-	// }
+		res.send(401, { error: 'Necessário estar autenticado' });
+		return false;
+	}
 
 	var post = req.param('post');
 
@@ -146,11 +149,11 @@ app.put('/posts/:id', function(req, res) { //update
 
 app.delete('/posts/:id', function(req, res) { //delete
 
-	// if(!req.session.user) {
+	if(!req.session.user) {
 
-	// 	res.json({post: {errorMsg: 'Necessário estar autenticado'}});
-	// 	return false;
-	// }
+		res.send(401, { error: 'Necessário estar autenticado' });
+		return false;
+	}
 
 	var id = validator.escape(validator.trim(req.param('id')));
 
@@ -201,7 +204,7 @@ app.post('/comments', function(req, res) { //create
 		});
 	} else {
 
-		res.json({'comment': {error: 'Favor informar um e-mail válido'}});
+		res.json({'comment': {errorMsg: 'Favor informar um e-mail válido'}});
 	}
 });
 
@@ -220,7 +223,7 @@ app.put('/comments', function(req, res) { //update
 		});
 	} else {
 
-		res.json({'comment': {error: 'Favor informar um e-mail válido'}});
+		res.json({'comment': {errorMsg: 'Favor informar um e-mail válido'}});
 	}
 });
 
