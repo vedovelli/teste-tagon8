@@ -12,7 +12,7 @@ abaixo, comentado, para futura referência.*/
 
 // var allowCORS = function(req, res, next) {
 
-//     res.header('Access-Control-Allow-Origin', 'http://tagon8-vedovelli.herokuapp.com/');
+//     res.header('Access-Control-Allow-Origin', '127.0.0.1:4730');
 //     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
 //     res.header('Access-Control-Allow-Headers', 'Content-Type');
 //     res.header('Access-Control-Allow-Credentials', 'true');
