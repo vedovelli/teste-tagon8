@@ -11,6 +11,7 @@ Ember.Handlebars.helper('format-date', function(date){
 	return new Handlebars.SafeString(moment(date).calendar());
 });
 
+/* devolve as tags HTML para o conteúdo encoded provido pelo MongoDB */
 Ember.Handlebars.helper('decode-html', function(content) {
 
 	var e = document.createElement('div');
