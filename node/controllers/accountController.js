@@ -29,7 +29,7 @@ exports.get = function(id, callback) {
 
 		if (err) {
 
-			callback({error: 'Não foi possível localizar a conta'});
+			callback({account: {errorMsg: 'Não foi possível localizar a conta'}});
 		} else {
 
 			callback({account: acc});
@@ -49,7 +49,7 @@ exports.save = function (fullname, email, password, callback) {
 
 		if(err) {
 
-			callback({error: 'Não foi possível salvar a conta'});
+			callback({account: {errorMsg: 'Não foi possível salvar a conta'}});
 		} else {
 
 			callback({account: acc});
@@ -64,7 +64,7 @@ exports.update = function(id, password, callback) {
 
 		if (err) {
 
-			callback({error: 'Não foi possível localizar a conta'});
+			callback({account: {errorMsg: 'Não foi possível localizar a conta'}});
 		}
 
 		account.password = password;
@@ -73,7 +73,7 @@ exports.update = function(id, password, callback) {
 
 			if(err) {
 
-				callback({error: 'Não foi possível atualizar a conta'});
+				callback({account: {error: 'Não foi possível atualizar a conta'}});
 			} else {
 
 				callback({account: acc});

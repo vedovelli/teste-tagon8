@@ -40,7 +40,7 @@ exports.delete = function(id, callback) {
 			pst.remove(function(err) {
 				if(err) {
 
-					callback({post: {errorMsg: err}});
+					callback({post: {errorMsg: 'Não foi possível remover o post'}});
 				} else {
 
 					callback({post: pst});

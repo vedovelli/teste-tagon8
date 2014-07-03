@@ -130,9 +130,9 @@ App.LoginController = Ember.ObjectController.extend({
 
 	hideLoginButton: false,
 
-	email: 'vedovelli@gmail.com',
+	email: '',
 
-	password: '123456',
+	password: '',
 
 	actions: {
 

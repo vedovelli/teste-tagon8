@@ -62,7 +62,7 @@ app.post('/accounts', function(req, res) { //create
 		});
 	} else {
 
-		res.json({errorMsg: 'Favor informar um e-mail válido'});
+		res.json({account: {errorMsg: 'Favor informar um e-mail válido'}});
 	}
 });
 
