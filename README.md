@@ -5,6 +5,7 @@ Test for Tagon8
 
 ### Pré-requisitos
 
+* GIT
 * Node.js
 * NPM
 * Bower
@@ -15,7 +16,7 @@ Test for Tagon8
 1. Clonar o repositório **git@github.com:vedovelli/teste-tagon8.git**
 2. cd teste-tagon8/ && bower install
 3. cd node/ && sudo npm install
-4. **node webservice.js** (ou _nodemon_ _webservice.js_ ou qualquer _deamon_ que se esteja acostumado)
+4. node webservice.js
 5. Acessar http://127.0.0.1:4730
 
 ### Projeto publicado
@@ -24,7 +25,6 @@ O projeto está publicado no Heroku e pode ser acessado pela URL xxx
 
 #### Melhorias futuras
 
-* Passar a servir a aplicação a partir do expressjs, migrando os arquivos estáticos para a pasta public/ do express
 * Após a ação de login, enviar o usuário para a tela onde estava e não à lista de posts
 * Adicionar transições de páginas
 * Esconder os botões de gerenciamento (editar e remover), mostrando-os no MouseOver
