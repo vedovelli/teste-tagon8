@@ -9,8 +9,8 @@ var commentController = require('./controllers/commentController.js');
 
 /*Routes*/
 app.get('/', function(req, res) {
-	res.type('text/plain');
-	res.send('Test Tagon8 - webservice');
+
+	res.sendfile('./public/index.html');
 });
 
 /*Routes for Login*/
