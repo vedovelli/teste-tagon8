@@ -24,6 +24,6 @@
   },
   "scripts": {
     "start": "node webservice.js",
-    "postinstall": "bower install"
+    "postinstall": "bower cache clean && bower install"
   }
 }
