@@ -50,7 +50,12 @@ App.AccountController = Ember.ObjectController.extend({
 
 				this.store.find('account', this.get('controllers.login.loggedUser._id')).then(function(account) {
 
-					account.set('password', p1).save().then(function() {
+					account.set('password', p1).save().then(function(response) {
+
+						if(response.get('errorMsg')) {
+							alert(response.get('errorMsg'));
+							return false;
+						}
 
 						self.set('password1', '');
 						self.set('password2', '');
@@ -99,6 +104,11 @@ App.AccountNewController = Ember.ObjectController.extend({
 					})
 					.save()
 					.then(function(response) {
+
+						if(response.get('errorMsg')) {
+							alert(response.get('errorMsg'));
+							return false;
+						}
 
 						alert('Conta criada com sucesso');
 						self.get('controllers.login').set('email', email);
@@ -274,6 +284,11 @@ App.PostsNewController = Ember.ObjectController.extend({
 						.save()
 						.then(function(response) {
 
+							if(response.get('errorMsg')) {
+								alert(response.get('errorMsg'));
+								return false;
+							}
+
 							// BUG pushObject adicionando duas vezes
 							self.get('controllers.posts').get('model').pushObject(response);
 							self.set('title', '');
@@ -333,12 +348,14 @@ App.PostController = Ember.ObjectController.extend({
 
 				if(title && body && tags) {
 
-					this.get('model').save().then(function() {
+					this.get('model').save().then(function(response) {
+
+						if(response.get('errorMsg')) {
+							alert(response.get('errorMsg'));
+							return false;
+						}
 
 						self.send('resetUI');
-					}, function(error) {
-
-						//TODO error handler
 					});
 				}
 			} else {
@@ -358,12 +375,12 @@ App.PostController = Ember.ObjectController.extend({
 
 					this.get('model').destroyRecord().then(function(response) {
 
-						//TODO error handling
+						if(response.get('errorMsg')) {
+							alert(response.get('errorMsg'));
+							return false;
+						}
 
 						self.transitionToRoute('posts');
-					}, function() {
-
-						//TODO error handler
 					});
 
 				}
@@ -382,18 +399,16 @@ App.PostController = Ember.ObjectController.extend({
 
 				comment.destroyRecord().then(function(response) {
 
+					if(response.get('errorMsg')) {
+						alert(response.get('errorMsg'));
+						return false;
+					}
+
 					self.get('model').get('comments').then(function(comments) {
 
 						comments.removeObject(comment);
-					}, function() {
-
-						//TODO error handler
 					});
-				}, function() {
-
-					//TODO error handler
 				});
-
 			}
 		},
 
@@ -414,25 +429,19 @@ App.PostController = Ember.ObjectController.extend({
 					  .save()
 					  .then(function(comment) {
 
-				if(comment.error) {
-
-					// TODO error handler
-				} else {
-
-					self.set('fullname', '');
-					self.set('email', '');
-					self.set('comment', '');
-
-					self.get('model').get('comments').then(function(comments) {
-
-						comments.pushObject(comment);
-					});
-
-					// TODO alertar o usuario do sucesso na insercao do comentario
+				if(comment.get('errorMsg')) {
+					alert(comment.get('errorMsg'));
+					return false;
 				}
-			}, function() {
 
-				//TODO error handler
+				self.set('fullname', '');
+				self.set('email', '');
+				self.set('comment', '');
+
+				self.get('model').get('comments').then(function(comments) {
+
+					comments.pushObject(comment);
+				});
 			});
 		}
 	}

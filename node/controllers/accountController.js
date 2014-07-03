@@ -73,7 +73,7 @@ exports.update = function(id, password, callback) {
 
 			if(err) {
 
-				callback({account: {error: 'Não foi possível atualizar a conta'}});
+				callback({account: {errorMsg: 'Não foi possível atualizar a conta'}});
 			} else {
 
 				callback({account: acc});
