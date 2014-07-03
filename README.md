@@ -17,7 +17,8 @@ Test for Tagon8
 2. cd teste-tagon8/ && sudo npm install
 3. cd public/ && bower install
 4. cd ../ && node webservice.js
-5. Acessar http://127.0.0.1:4730
+5. Acessar http://127.0.0.1:4730/#/account/new para criar sua conta e começar a usar o sistema
+6. =D
 
 ### Projeto publicado
 
