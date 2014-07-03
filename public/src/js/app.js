@@ -17,6 +17,6 @@ App.ApplicationSerializer = DS.RESTSerializer.extend({
 
 DS.RESTAdapter.reopen({
 
-	// host: 'http://127.0.0.1:4730'
-	host: 'http://tagon8-vedovelli.herokuapp.com'
+	host: 'http://127.0.0.1:4730'
+	// host: 'http://tagon8-vedovelli.herokuapp.com'
 });
