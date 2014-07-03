@@ -1,7 +1,3 @@
-/*
-26/06/2014 14:50:34
-v.1.0
-*/
 
 var app = require('./app.js'); // Inicia a aplicação e seta os middlewares
 var db = require('./db.js'); // Configuração de banco de dados e schemas
