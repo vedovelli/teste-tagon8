@@ -10,20 +10,21 @@ var bodyParser = require('body-parser');
 express o CORS deixou de ser necessário. O código será mantido
 abaixo, comentado, para futura referência.*/
 
-// var allowCORS = function(req, res, next) {
+var allowCORS = function(req, res, next) {
 
-//     res.header('Access-Control-Allow-Origin', 'http://tagon8.ved');
-//     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-//     res.header('Access-Control-Allow-Headers', 'Content-Type');
-//     res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Origin', 'http://tagon8-vedovelli.herokuapp.com/');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Allow-Credentials', 'true');
 
-//     next();
-// }
+    next();
+}
 
-// app.use(allowCORS);
 
 /*app setup and startup*/
 app.listen(process.env.PORT || 4730);
+
+app.use(allowCORS);
 
 app.use(bodyParser.json());
 
