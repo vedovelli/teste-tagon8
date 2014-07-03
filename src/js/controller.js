@@ -1,11 +1,13 @@
 App.ApplicationController = Ember.ObjectController.extend({
 
+	/* adiciona como dependencia o LoginController */
 	needs: ['login'],
 
 	actions: {
 
 		doLogout: function() {
 
+			/* dispara ação de logou no LoginController */
 			this.get('controllers.login').send('loginActions', 'logout');
 		},
 
@@ -16,6 +18,7 @@ App.ApplicationController = Ember.ObjectController.extend({
 
 		showAccount: function() {
 
+			/* verifica se o usuário está logado antes de mostrar a tela de visualização da conta */
 			if(this.get('controllers.login.isLoggedIn')) {
 
 				this.transitionToRoute('account');
@@ -29,6 +32,7 @@ App.ApplicationController = Ember.ObjectController.extend({
 
 App.AccountController = Ember.ObjectController.extend({
 
+	/* Adiciona como dependência o LoginController */
 	needs: ['login'],
 
 	password1: '',
@@ -69,6 +73,7 @@ App.AccountController = Ember.ObjectController.extend({
 
 App.AccountNewController = Ember.ObjectController.extend({
 
+	/* Adiciona como dependência o LoginController */
 	needs: ['login'],
 
 	fullname: '',
@@ -132,6 +137,7 @@ App.AccountNewController = Ember.ObjectController.extend({
 
 App.LoginController = Ember.ObjectController.extend({
 
+	/* Adiciona PostsController e PostController como dependências */
 	needs: ['posts', 'post'],
 
 	isLoggedIn: false,
@@ -148,8 +154,8 @@ App.LoginController = Ember.ObjectController.extend({
 
 		resetUI: function() {
 
-			// this.set('email', '');
-			// this.set('password', '');
+			this.set('email', '');
+			this.set('password', '');
 		},
 
 
@@ -168,6 +174,7 @@ App.LoginController = Ember.ObjectController.extend({
 
 			if(action == 'login') {
 
+				/* adapter.host pega a URL do webservice, definida em /src/js/app.js */
 				url = adapter.host + '/login/' + this.get('email') +'/'+ this.get('password');
 				userStateAfterAction = true;
 				doReset = function() {};
@@ -199,6 +206,7 @@ App.LoginController = Ember.ObjectController.extend({
 
 App.PostsController = Ember.ArrayController.extend({
 
+	/* Adiciona o LoginController como dependência */
 	needs: ['login'],
 
 	sortProperties: ['post_date'],
@@ -249,9 +257,18 @@ App.PostsController = Ember.ArrayController.extend({
 
 App.PostsNewController = Ember.ObjectController.extend({
 
+	/* Adiciona como dependências PostsController e LoginController */
 	needs: ['posts', 'login'],
 
 	actions: {
+
+		resetUI: function() {
+
+			this.set('title', '');
+			this.set('body', '');
+			this.set('tags', '');
+			this.get('controllers.posts').set('newPostButtonVisible', true);
+		},
 
 		cancelFormPost: function() {
 
@@ -262,6 +279,7 @@ App.PostsNewController = Ember.ObjectController.extend({
 
 		savePost: function() {
 
+			/* verifica se o usuário está logado */
 			if(this.get('controllers.login.isLoggedIn')) {
 
 				var
@@ -278,7 +296,6 @@ App.PostsNewController = Ember.ObjectController.extend({
 						tags: this.get('tags')
 					};
 
-
 					this.store.
 						createRecord('post', postObject)
 						.save()
@@ -289,12 +306,9 @@ App.PostsNewController = Ember.ObjectController.extend({
 								return false;
 							}
 
-							// BUG pushObject adicionando duas vezes
+							// BUG pushObject acionado duas vezes
 							self.get('controllers.posts').get('model').pushObject(response);
-							self.set('title', '');
-							self.set('body', '');
-							self.set('tags', '');
-							self.get('controllers.posts').set('newPostButtonVisible', true);
+							self.send('resetUI');
 							self.transitionToRoute('posts');
 						}, function(error) {
 
@@ -312,6 +326,7 @@ App.PostsNewController = Ember.ObjectController.extend({
 
 App.PostController = Ember.ObjectController.extend({
 
+	/* Adiciona como dependência LoginController */
 	needs: ['login'],
 
 	isEditing: false,
@@ -321,10 +336,14 @@ App.PostController = Ember.ObjectController.extend({
 		resetUI: function() {
 
 			this.set('isEditing', false);
+			this.set('fullname', '');
+			this.set('email', '');
+			this.set('comment', '');
 		},
 
 		editPost: function(params) {
 
+			/* Verifica se o usuário está logado */
 			if(this.get('controllers.login.isLoggedIn')) {
 
 				this.set('isEditing', true);
@@ -342,6 +361,7 @@ App.PostController = Ember.ObjectController.extend({
 
 		savePost: function() {
 
+			/* Verifica se o usuário está logado */
 			if(this.get('controllers.login.isLoggedIn')) {
 
 				var self = this;
@@ -367,6 +387,7 @@ App.PostController = Ember.ObjectController.extend({
 
 		removePost: function(params) {
 
+			/* Verifica se o usuário está logado */
 			if(this.get('controllers.login.isLoggedIn')) {
 
 				var self = this;
@@ -434,9 +455,7 @@ App.PostController = Ember.ObjectController.extend({
 					return false;
 				}
 
-				self.set('fullname', '');
-				self.set('email', '');
-				self.set('comment', '');
+				self.send('resetUI');
 
 				self.get('model').get('comments').then(function(comments) {
 
