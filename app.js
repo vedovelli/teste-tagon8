@@ -27,10 +27,9 @@ app.listen(process.env.PORT || 4730);
 
 app.use(bodyParser.json());
 
-
 app.use(session({secret: '&io9*45,'}));
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static('public'));
 
 app.use(bodyParser.urlencoded({
 

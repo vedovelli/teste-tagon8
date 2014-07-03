@@ -29,7 +29,7 @@ Test for Tagon8
 
 ### Projeto publicado
 
-O projeto está publicado no Heroku e pode ser acessado pela URL xxx
+O projeto está publicado no Heroku e pode ser acessado pela URL http://tagon8-vedovelli.herokuapp.com/
 
 #### Melhorias futuras
 
