@@ -1,5 +1,7 @@
 var express = require('express');
 
+var path = require('path');
+
 var app = module.exports = express();
 
 var session = require('express-session');
@@ -30,8 +32,8 @@ app.use(bodyParser.json());
 
 app.use(session({secret: '&io9*45,'}));
 
-app.use(express.static(__dirname + '/public'));
-app.use('/public/bower_components/bootstrap/dist/css', express.static(__dirname + '/public/bower_components/bootstrap/dist/css'));
+// app.use(express.static(path.join(__dirname + '/public')));
+app.use(express.static(path.join(__dirname, './public'), { maxAge: 86400000 }));
 
 app.use(bodyParser.urlencoded({
 
