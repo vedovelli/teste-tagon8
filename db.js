@@ -1,5 +1,10 @@
+var uristring =
+	process.env.MONGOLAB_URI ||
+	process.env.MONGOHQ_URL ||
+	'mongodb://localhost/tagon8';
+
 var Account, Post, Comment;
-var mongoose = require('mongoose').connect('mongodb://127.0.0.1/tagon8');
+var mongoose = require('mongoose').connect(uristring);
 var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
