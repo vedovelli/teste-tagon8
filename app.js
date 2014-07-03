@@ -1,3 +1,5 @@
+process.env.PWD = process.cwd();
+
 var express = require('express');
 
 var app = module.exports = express();
@@ -29,7 +31,7 @@ app.use(bodyParser.json());
 
 app.use(session({secret: '&io9*45,'}));
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(process.env.PWD + '/public'));
 
 app.use(bodyParser.urlencoded({
 
