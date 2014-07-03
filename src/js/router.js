@@ -5,10 +5,9 @@ App.Router.map(function() {
 		this.route('new');
 	});
 
-	this.resource('account', function() {
+	this.route('account');
 
-		this.route('new');
-	});
+	this.route('account.new', {path: '/account/new'});
 
 	this.route('post', {path: '/post/:id'});
 
@@ -53,14 +52,6 @@ App.PostsNewRoute = Ember.Route.extend({
 	}
 });
 
-App.PostRoute = Ember.Route.extend({
-
-	model: function(params) {
-
-		return this.store.find('post', params.id);
-	}
-});
-
 App.AccountRoute = Ember.Route.extend({
 
 	activate: function() {
@@ -71,6 +62,14 @@ App.AccountRoute = Ember.Route.extend({
 			/* redirecionada para login caso não esteja logado  */
 			this.transitionTo('login');
 		}
+	}
+});
+
+App.PostRoute = Ember.Route.extend({
+
+	model: function(params) {
+
+		return this.store.find('post', params.id);
 	}
 });
 

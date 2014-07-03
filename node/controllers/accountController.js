@@ -6,10 +6,10 @@ exports.login = function(email, password, req, callback) {
 
 		if(err) {
 
-			callback({error: 'Problema ao localizar a conta'});
+			callback({account: {errorMsg: 'Problema ao localizar a conta'}});
 		} else if(!account) {
 
-			callback({error: 'Conta não encontrada'});
+			callback({account: {errorMsg: 'Conta não encontrada'}});
 		} else {
 
 			if(account.password == password) {
@@ -17,7 +17,7 @@ exports.login = function(email, password, req, callback) {
 				callback({'account': account});
 			} else {
 
-				callback({error: 'Senha não confere'});
+				callback({account: {errorMsg: 'Senha não confere'}});
 			}
 		}
 	});

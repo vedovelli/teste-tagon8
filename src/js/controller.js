@@ -162,7 +162,6 @@ App.LoginController = Ember.ObjectController.extend({
 				userStateAfterAction = true;
 				doReset = function() {};
 			} else {
-
 				url = adapter.host + '/logout';
 				userStateAfterAction = false;
 				doReset = function() {
@@ -174,9 +173,9 @@ App.LoginController = Ember.ObjectController.extend({
 
 			Ember.$.getJSON(url, function(data) {
 
-				if(data.error) {
+				if(data.account.errorMsg) {
 
-					alert(data.error);
+					alert(data.account.errorMsg);
 				} else {
 					doReset();
 					self.set('loggedUser', data.account);

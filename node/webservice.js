@@ -32,7 +32,7 @@ app.get('/login/:email/:password', function(req, res) {
 app.get('/logout', function(req, res) {
 
 	req.session = null;
-	res.json({result: true});
+	res.json({account: {result: true}});
 });
 
 /*Routes for Account*/
