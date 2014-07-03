@@ -16,5 +16,5 @@ App.ApplicationSerializer = DS.RESTSerializer.extend({
 
 DS.RESTAdapter.reopen({
 
-	host: 'http://tagon8.ved:4730'
+	host: 'http://127.0.0.1:4730'
 });
