@@ -1,5 +1,6 @@
 {
   "name": "Tagon8",
+  "version": "2.0.0",
   "description": "Admission test for Tagon8",
   "author": "Fábio Vedovelli <vedovelli@gmail.com>",
   "dependencies": {
@@ -10,12 +11,18 @@
     "validator": "3.16.0",
     "body-parser": "1.4.3"
   },
-  "engine": "node 0.10.18",
+  "engines": {
+    "node": "0.10.x"
+  },
   "devDependencies": {
     "gulp": "~3.8.5",
     "gulp-rename": "~1.2.0",
     "gulp-concat": "~2.2.0",
     "gulp-uglify": "~0.3.1",
     "gulp-jshint": "~1.6.4"
+  },
+  "scripts": {
+    "start": "node webservice.js",
+    "postinstall": "bower install"
   }
 }
