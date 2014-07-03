@@ -1,4 +1,3 @@
-process.env.PWD = process.cwd();
 
 var app = require('./app.js'); // Inicia a aplicação e seta os middlewares
 var db = require('./db.js'); // Configuração de banco de dados e schemas
