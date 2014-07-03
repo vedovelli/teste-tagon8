@@ -123,7 +123,7 @@
         {{outlet}}
 
         {{#each postList}}
-            <p>{{#link-to 'post' this}}{{title}}{{/link-to}}<br>{{format-date post_date}}</p>
+            <p>{{#link-to 'post' this}}{{title}}{{/link-to}}<br><small>{{format-date post_date}}</small></p>
             <p>Tags {{tags}}</p>
             <hr>
         {{/each}}
@@ -171,7 +171,7 @@
                 <p class="pull-right"><button class="btn btn-danger btn-xs" {{action 'removePost' this}}>remover</button></p>
                 <p class="pull-right"><button class="btn btn-info btn-xs" {{action 'editPost' this}}>editar</button>&nbsp;&nbsp;&nbsp;</p>
 
-                <h2>{{title}}<br>{{format-date post_date}}</h2>
+                <h2>{{title}}<br><small>{{format-date post_date}}</small></h2>
                 <div>{{decode-html body}}</div>
                 <p><small>Tags: <strong>{{tags}}</strong></small></p>
             </div>
@@ -202,7 +202,7 @@
                 {{#each comment in comments}}
                     <div class="well">
                         <h5>
-                            {{comment.fullname}} {{format-date comment.comment_date}}
+                            {{comment.fullname}} <small>{{format-date comment.comment_date}}</small>
                             <p class="pull-right"><button class="btn btn-danger btn-xs" {{action 'removeComment' comment}}>remover</button></p>
                         </h5>
                         <p>{{comment.comment}}</p>

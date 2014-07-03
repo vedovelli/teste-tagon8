@@ -8,11 +8,7 @@ Handlebars.registerHelper("log", function(context) {
 Ember.Handlebars.helper('format-date', function(date){
 
 	moment.lang('pt-BR')
-	var markup ='';
-	markup += ' <small>';
-	markup += moment(date).calendar();
-	markup += '</small>';
-	return new Handlebars.SafeString(markup);
+	return new Handlebars.SafeString(moment(date).calendar());
 });
 
 Ember.Handlebars.helper('decode-html', function(content) {
