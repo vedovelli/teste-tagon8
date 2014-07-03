@@ -20,6 +20,13 @@ Test for Tagon8
 5. Acessar http://127.0.0.1:4730/#/account/new para criar sua conta e começar a usar o sistema
 6. =D
 
+### Arquitetura
+
+* O projeto é _fullstack_ _javascript_ rodando em node.js
+* O arquivo principal da API é o **/webservice.js**
+* A programação client side é encontrada na pasta **_public_**, cujo conteúdo é servido pelo _express.js_ a partir do _webservice.js_
+* O grosso da programação javascript client side está em src/js (aplicação ember.js)
+
 ### Projeto publicado
 
 O projeto está publicado no Heroku e pode ser acessado pela URL xxx
