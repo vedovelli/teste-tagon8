@@ -14,9 +14,9 @@ Test for Tagon8
 ### Instalação
 
 1. Clonar o repositório **git@github.com:vedovelli/teste-tagon8.git**
-2. cd teste-tagon8/ && bower install
-3. cd node/ && sudo npm install
-4. node webservice.js
+2. cd teste-tagon8/ && sudo npm install
+3. cd public/ && bower install
+4. cd ../ && node webservice.js
 5. Acessar http://127.0.0.1:4730
 
 ### Projeto publicado
