@@ -23,7 +23,7 @@ abaixo, comentado, para futura referência.*/
 // app.use(allowCORS);
 
 /*app setup and startup*/
-app.listen(4730);
+app.listen(process.env.PORT || 4730);
 
 app.use(bodyParser.json());
 
