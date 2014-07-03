@@ -24,8 +24,8 @@ Test for Tagon8
 
 * O projeto é _fullstack_ _javascript_ rodando em node.js
 * O arquivo principal da API é o **/webservice.js**
-* A programação client side é encontrada na pasta **_public_**, cujo conteúdo é servido pelo _express.js_ a partir do _webservice.js_
-* O grosso da programação javascript client side está em src/js (aplicação ember.js)
+* A programação client side é encontrada na pasta **_/public_**, cujo conteúdo é servido pelo _express.js_ a partir do _webservice.js_
+* O grosso da programação javascript client side está em **_/public/src/js_** (aplicação ember.js)
 
 ### Projeto publicado
 
