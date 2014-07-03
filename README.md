@@ -3,6 +3,17 @@ teste-tagon8
 
 Test for Tagon8
 
+### Pré-requisitos
+
+* Node.js
+* NPM
+* Bower
+* MongoDB
+
+### Instalação
+
++ Clonar o repositório
+
 ### Melhorias futuras
 
 * Após a ação de login, enviar o usuário para a tela onde estava e não à lista de posts
