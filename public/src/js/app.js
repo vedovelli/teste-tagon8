@@ -1,3 +1,4 @@
+/* definir app */
 window.App = Ember.Application.create();
 
 /* Necessário para que a troca de cookies entre client e server aconteça de forma correta */

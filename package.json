@@ -1,14 +1,21 @@
 {
-	"name": "Tagon8",
-	"description": "Admission test for Tagon8",
-	"author": "Fábio Vedovelli <vedovelli@gmail.com>",
-	"dependencies": {
-		"express": "4.4.3",
-		"mongoose": "3.8.12",
-		"connect": "3.0.1",
-		"express-session": "1.6.1",
-		"validator": "3.16.0",
-		"body-parser": "1.4.3"
-	},
-	"engine": "node 0.10.18"
+  "name": "Tagon8",
+  "description": "Admission test for Tagon8",
+  "author": "Fábio Vedovelli <vedovelli@gmail.com>",
+  "dependencies": {
+    "express": "4.4.3",
+    "mongoose": "3.8.12",
+    "connect": "3.0.1",
+    "express-session": "1.6.1",
+    "validator": "3.16.0",
+    "body-parser": "1.4.3"
+  },
+  "engine": "node 0.10.18",
+  "devDependencies": {
+    "gulp": "~3.8.5",
+    "gulp-rename": "~1.2.0",
+    "gulp-concat": "~2.2.0",
+    "gulp-uglify": "~0.3.1",
+    "gulp-jshint": "~1.6.4"
+  }
 }
