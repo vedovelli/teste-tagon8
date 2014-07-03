@@ -15,7 +15,7 @@ Test for Tagon8
 1. Clonar o repositório **git@github.com:vedovelli/teste-tagon8.git**
 2. cd teste-tagon8/ && bower install
 3. cd node/ && sudo npm install
-4. Editar o arquivo /node/app.js, linha 11 (res.header('Access-Control-Allow-Origin', 'http://tagon8.ved');), trocando a URL http://tagon8.ved para sua URL local de acesso ao sistema
+4. Editar o arquivo /node/app.js, linha 11 (res.header('Access-Control-Allow-Origin', 'http://tagon8.ved');), trocando a URL http://tagon8.ved para sua URL local de acesso ao sistema. **Importante**: não utilizar wildcard (*) no lugar da URL
 5. **node webservice.js** (ou _nodemon_ _webservice.js_ ou qualquer _deamon_ que se esteja acostumado)
 
 ### Projeto publicado
