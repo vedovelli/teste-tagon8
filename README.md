@@ -12,12 +12,17 @@ Test for Tagon8
 
 ### Instalação
 
-1. Clonar o repositório *git@github.com:vedovelli/teste-tagon8.git*
+1. Clonar o repositório **git@github.com:vedovelli/teste-tagon8.git**
 2. cd teste-tagon8/ && bower install
 3. cd node/ && sudo npm install
-4. *node webservice.js* (ou _nodemon_ _webservice.js_ ou qualquer _deamon_ que se esteja acostumado)
+4. **node webservice.js** (ou _nodemon_ _webservice.js_ ou qualquer _deamon_ que se esteja acostumado)
+5. [opcional] Criar um vhost apontando para a pasta do projeto
 
-### Melhorias futuras
+### Projeto publicado
+
+O projeto está publicado no Heroku e pode ser acessado pela URL xxx
+
+#### Melhorias futuras
 
 * Após a ação de login, enviar o usuário para a tela onde estava e não à lista de posts
 * Adicionar transições de páginas
