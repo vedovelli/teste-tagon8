@@ -31,6 +31,7 @@ app.use(bodyParser.json());
 app.use(session({secret: '&io9*45,'}));
 
 app.use(express.static(__dirname + '/public'));
+app.use('/bower_components', express.static(__dirname + '/bower_components'));
 
 app.use(bodyParser.urlencoded({
 
