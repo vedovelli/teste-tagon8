@@ -1,5 +1,3 @@
-process.env.PWD = process.cwd();
-
 var express = require('express');
 
 var app = module.exports = express();
