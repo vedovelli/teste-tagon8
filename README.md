@@ -38,6 +38,7 @@ O projeto está publicado no Heroku e pode ser acessado pela URL http://tagon8-v
 
 #### Melhorias futuras
 
+* Portar o projeto para a organização de arquivos e diretórios proposta pelo **ember-cli**
 * Adicionar WYSIWUG editor no formulário de criação de posts
 * Sanitizar o conteúdo do comentário para não permitir tags HTML
 * Após a ação de login, enviar o usuário para a tela onde estava e não à lista de posts
