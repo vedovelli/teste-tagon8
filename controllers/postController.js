@@ -1,5 +1,9 @@
 var db = require('../db.js');
 
+var Entities = require('html-entities').AllHtmlEntities;
+
+var entities = new Entities();
+
 exports.list = function(callback) {
 
 	db.post.find({}).sort('-post_date').exec(function(err, psts) {
@@ -22,6 +26,8 @@ exports.get = function(id, callback) {
 
 			callback({post: {errorMsg: 'Não foi possível localizar o post'}});
 		} else {
+
+			pst.body = entities.decode(pst.body);
 
 			callback({post: pst});
 		}

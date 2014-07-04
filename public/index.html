@@ -175,7 +175,7 @@
                 <p class="pull-right"><button class="btn btn-info btn-xs" {{action 'editPost' this}}>editar</button>&nbsp;&nbsp;&nbsp;</p>
 
                 <h2>{{title}}<br><small>{{format-date post_date}}</small></h2>
-                <div>{{decode-html body}}</div>
+                <div>{{{body}}}</div> {{!triple curly braces}}
                 <p><small>Tags: <strong>{{tags}}</strong></small></p>
             </div>
             <form role="form" {{action 'saveComment' on="submit"}}>
