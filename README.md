@@ -31,6 +31,11 @@ Test for Tagon8
 
 O projeto está publicado no Heroku e pode ser acessado pela URL http://tagon8-vedovelli.herokuapp.com/
 
+### Bugs conhecidos
+
+* Ao adicionar novo post, o método pushObject é executado duas vezes
+* Ao editar um post que contém HTML, as tags HTML são codificadas duas vezes ao serem salvas no DB
+
 #### Melhorias futuras
 
 * Após a ação de login, enviar o usuário para a tela onde estava e não à lista de posts
