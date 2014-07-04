@@ -34,10 +34,12 @@ O projeto está publicado no Heroku e pode ser acessado pela URL http://tagon8-v
 ### Bugs conhecidos
 
 * Ao adicionar novo post, o método pushObject é executado duas vezes
-* Ao editar um post que contém HTML, as tags HTML são codificadas duas vezes ao serem salvas no DB
+* Ao editar um post que contém HTML, as tags HTML são codificadas duas vezes ao serem salvas no DB (adicionar WYSIWUG editor? www.tinymce.com)
 
 #### Melhorias futuras
 
+* Adicionar WYSIWUG editor no formulário de criação de posts
+* Sanitizar o conteúdo do comentário para não permitir tags HTML
 * Após a ação de login, enviar o usuário para a tela onde estava e não à lista de posts
 * Adicionar transições de páginas
 * Esconder os botões de gerenciamento (editar e remover), mostrando-os no MouseOver
@@ -46,3 +48,4 @@ O projeto está publicado no Heroku e pode ser acessado pela URL http://tagon8-v
 * Transformar o campo de tags com o plugin Select2, buscando tags existentes enquanto o usuário digita
 * Tornar os comentários independentes, associando a eles um controller, para que se permita fazer o sort por mais recentes
 * Criar a rota /logout
+* Criar a rota /post/:id/edit
