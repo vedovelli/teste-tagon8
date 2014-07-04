@@ -96,7 +96,7 @@ exports.update = function(id, title, body, tags, callback) {
 		}
 
 		post.title = title;
-		post.body = html_decode(post.body);
+		post.body = body;
 		post.tags = tags;
 		post.post_date = new Date();
 
@@ -106,6 +106,8 @@ exports.update = function(id, title, body, tags, callback) {
 
 				callback({post: {errorMsg: 'Não foi possível atualizar o post'}});
 			} else {
+
+				pst.body = html_decode(pst.body);
 
 				callback({post: pst});
 			}

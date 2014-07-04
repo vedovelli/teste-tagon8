@@ -34,13 +34,13 @@ O projeto está publicado no Heroku e pode ser acessado pela URL http://tagon8-v
 ### Bugs conhecidos
 
 * Ao adicionar novo post, o método pushObject é executado duas vezes
-* ~~Ao editar um post que contém HTML, as tags HTML são codificadas duas vezes ao serem salvas no DB (adicionar WYSIWUG editor? www.tinymce.com)~~
+* ~~Ao editar um post que contém HTML, as tags HTML são codificadas duas vezes ao serem salvas no DB (adicionar WYSIWYG editor? www.tinymce.com)~~
 
 #### Melhorias futuras
 
 * Ao carregar o site, verificar no server se o usuário está logado. Caso afirmativo, setar variável isLoggedIn como true e loggedUser com o obejto retornado pelo método server de verificação
 * Portar o projeto para a organização de arquivos e diretórios proposta pelo **ember-cli**
-* Adicionar WYSIWUG editor no formulário de criação de posts
+* Adicionar WYSIWYG editor no formulário de criação de posts
 * Sanitizar o conteúdo do comentário para não permitir tags HTML
 * Após a ação de login, enviar o usuário para a tela onde estava e não à lista de posts
 * Adicionar transições de páginas

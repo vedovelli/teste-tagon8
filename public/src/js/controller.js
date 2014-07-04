@@ -146,9 +146,9 @@ App.LoginController = Ember.ObjectController.extend({
 
 	hideLoginButton: false,
 
-	email: '',
+	email: 'vedovelli@gmail.com',
 
-	password: '',
+	password: '123',
 
 	actions: {
 
@@ -331,6 +331,11 @@ App.PostController = Ember.ObjectController.extend({
 
 	isEditing: false,
 
+	bodyObserver: function() {
+
+		// console.log(this.get('body'));
+	}.observes('body'),
+
 	actions: {
 
 		resetUI: function() {
@@ -366,18 +371,15 @@ App.PostController = Ember.ObjectController.extend({
 
 				var self = this;
 
-				if(title && body && tags) {
+				this.get('model').save().then(function(response) {
 
-					this.get('model').save().then(function(response) {
+					if(response.get('errorMsg')) {
+						alert(response.get('errorMsg'));
+						return false;
+					}
 
-						if(response.get('errorMsg')) {
-							alert(response.get('errorMsg'));
-							return false;
-						}
-
-						self.send('resetUI');
-					});
-				}
+					self.send('resetUI');
+				});
 			} else {
 
 				this.transitionToRoute('login');
@@ -460,6 +462,9 @@ App.PostController = Ember.ObjectController.extend({
 				self.get('model').get('comments').then(function(comments) {
 
 					comments.pushObject(comment);
+
+					/* fullname vive no escopo da action e é uma referência ao ID do campo do formulário */
+					Ember.$(fullname).focus();
 				});
 			});
 		}
