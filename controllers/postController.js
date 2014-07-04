@@ -13,6 +13,11 @@ exports.list = function(callback) {
 			callback({post: {errorMsg: 'Não foi possível localizar posts'}});
 		} else {
 
+			psts.forEach(function(pst) {
+
+				pst.body = html_decode(pst.body);
+			});
+
 			callback({posts: psts, meta: {total: psts.length}});
 		}
 	});
@@ -27,7 +32,7 @@ exports.get = function(id, callback) {
 			callback({post: {errorMsg: 'Não foi possível localizar o post'}});
 		} else {
 
-			pst.body = entities.decode(pst.body);
+			pst.body = html_decode(pst.body);
 
 			callback({post: pst});
 		}
@@ -48,6 +53,8 @@ exports.delete = function(id, callback) {
 
 					callback({post: {errorMsg: 'Não foi possível remover o post'}});
 				} else {
+
+					pst.body = html_decode(pst.body);
 
 					callback({post: pst});
 				}
@@ -71,6 +78,8 @@ exports.save = function (title, body, tags, callback) {
 			callback({post: {errorMsg: 'Não foi possível salvar o post'}});
 		} else {
 
+			pst.body = html_decode(pst.body);
+
 			callback({post: pst});
 		}
 	});
@@ -87,7 +96,7 @@ exports.update = function(id, title, body, tags, callback) {
 		}
 
 		post.title = title;
-		post.body = body;
+		post.body = html_decode(post.body);
 		post.tags = tags;
 		post.post_date = new Date();
 
@@ -103,3 +112,8 @@ exports.update = function(id, title, body, tags, callback) {
 		});
 	});
 }
+
+var html_decode = function(input) {
+
+	return entities.decode(input);
+};
