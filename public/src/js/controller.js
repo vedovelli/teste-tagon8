@@ -331,11 +331,6 @@ App.PostController = Ember.ObjectController.extend({
 
 	isEditing: false,
 
-	bodyObserver: function() {
-
-		// console.log(this.get('body'));
-	}.observes('body'),
-
 	actions: {
 
 		resetUI: function() {
