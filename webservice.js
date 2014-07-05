@@ -14,6 +14,17 @@ app.get('/', function(req, res) {
 });
 
 /*Routes for Login*/
+app.get('/logged', function(req, res) {
+
+	if(!req.session.user) {
+
+		res.json({account: { error: 'Necessário estar autenticado' }});
+	} else {
+
+		res.json({account: req.session.user});
+	}
+});
+
 app.get('/login/:email/:password', function(req, res) {
 
 	var email = validator.escape(validator.trim(req.param('email')));
@@ -27,7 +38,7 @@ app.get('/login/:email/:password', function(req, res) {
 
 app.get('/logout', function(req, res) {
 
-	req.session = null;
+	req.session.user = null;
 	res.json({account: {result: true}});
 });
 

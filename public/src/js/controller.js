@@ -331,6 +331,12 @@ App.PostController = Ember.ObjectController.extend({
 
 	isEditing: false,
 
+	fullname: '',
+
+	email: '',
+
+	comment: '',
+
 	actions: {
 
 		resetUI: function() {

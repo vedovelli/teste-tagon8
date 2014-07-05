@@ -14,6 +14,28 @@ App.Router.map(function() {
 	this.route('login');
 });
 
+App.ApplicationRoute = Ember.Route.extend({
+
+	activate: function() {
+
+		var adapter = DS.RESTAdapter.create();
+
+		var loginController = this.controllerFor('login');
+
+		Ember.run.once(this, function() {
+
+			Ember.$.getJSON(adapter.host + '/logged', function(data) {
+
+				if(data.account.fullname) {
+
+					loginController.set('loggedUser', data.account);
+					loginController.set('isLoggedIn', true);
+				}
+			});
+		});
+	}
+});
+
 App.IndexRoute = Ember.Route.extend({
 
 	/* Redireciona para a lista de posts pois não há conteúdo para a rota index */
