@@ -42,7 +42,10 @@ O projeto está publicado no Heroku e pode ser acessado pela URL http://tagon8-v
 * Portar o projeto para a organização de arquivos e diretórios proposta pelo **ember-cli**
 * Adicionar WYSIWYG editor no formulário de criação de posts
 * Sanitizar o conteúdo do comentário para não permitir tags HTML
-* Após a ação de login, enviar o usuário para a tela onde estava e não à lista de posts
+* Criar uma classe UIStateManager para gerenciar o estado da interface. Responsabilidades:
+    * Redirecionar para a rota que gerou a necessidade de login
+    * Ao efetuar logou estando numa rota protegida, mostrar a tela de login ou redirecionar para rota index
+    * Reset nas telas
 * Adicionar transições de páginas
 * Esconder os botões de gerenciamento (editar e remover), mostrando-os no MouseOver
 * Remover os alertas padrão do Javascript, adicionando em seu lugar alertas do BootstrapGrowl
