@@ -38,7 +38,7 @@ O projeto está publicado no Heroku e pode ser acessado pela URL http://tagon8-v
 
 #### Melhorias futuras
 
-* Ao carregar o site, verificar no server se o usuário está logado. Caso afirmativo, setar variável isLoggedIn como true e loggedUser com o obejto retornado pelo método server de verificação
+* ~~Ao carregar o site, verificar no server se o usuário está logado. Caso afirmativo, setar variável isLoggedIn como true e loggedUser com o obejto retornado pelo método server de verificação~~
 * Portar o projeto para a organização de arquivos e diretórios proposta pelo **ember-cli**
 * Adicionar WYSIWYG editor no formulário de criação de posts
 * Sanitizar o conteúdo do comentário para não permitir tags HTML

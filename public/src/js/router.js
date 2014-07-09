@@ -18,6 +18,8 @@ App.ApplicationRoute = Ember.Route.extend({
 
 	activate: function() {
 
+		var self = this;
+
 		var adapter = DS.RESTAdapter.create();
 
 		var loginController = this.controllerFor('login');
@@ -30,6 +32,11 @@ App.ApplicationRoute = Ember.Route.extend({
 
 					loginController.set('loggedUser', data.account);
 					loginController.set('isLoggedIn', true);
+
+					if(self.controllerFor('application').get('currentPath') == 'login') {
+
+						self.transitionTo('posts');
+					}
 				}
 			});
 		});
