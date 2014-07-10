@@ -44,7 +44,7 @@ O projeto está publicado no Heroku e pode ser acessado pela URL http://tagon8-v
 * Sanitizar o conteúdo do comentário para não permitir tags HTML
 * Criar uma classe UIStateManager para gerenciar o estado da interface. Responsabilidades:
     * Redirecionar para a rota que gerou a necessidade de login
-    * Ao efetuar logou estando numa rota protegida, mostrar a tela de login ou redirecionar para rota index
+    * Ao efetuar logout estando numa rota protegida, mostrar a tela de login ou redirecionar para rota index
     * Reset nas telas
 * Adicionar transições de páginas
 * Esconder os botões de gerenciamento (editar e remover), mostrando-os no MouseOver
